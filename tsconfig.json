@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "outDir": "./dist/",
+    "rootDir": "./src/",
+    "resolveJsonModule": true,
+    "downlevelIteration": true,
+    "strict": true,
+    "typeRoots": ["./node_modules/@types"],
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"],
+    "baseUrl": "src",
+    "paths": {
+      "@keys": ["keys/index"],
+      "@assets/*": ["assets/*"],
+      "@models/*": ["models/*"],
+      "@cron/*": ["cron/*"],
+      "@routes/v1/*": ["routes/api/v1/*"]
+    },
+    "noImplicitAny": true
+  },
+  "exclude": ["node_modules"]
+}
