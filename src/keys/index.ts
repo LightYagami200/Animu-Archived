@@ -3,16 +3,8 @@ const keys =
     ? require('./prod')
     : require('./dev');
 
-const expressAppSecret: string = keys.expressAppSecret;
 const discordBotToken: string = keys.discordBotToken;
 const discordClientID: string = keys.discordClientID;
-const discordClientSecret: string = keys.discordClientSecret;
-const discordRedirectURL: string = keys.discordRedirectURL;
+const discordTestGuildID: string = keys.discordTestGuildID;
 
-export {
-  expressAppSecret,
-  discordBotToken,
-  discordClientID,
-  discordClientSecret,
-  discordRedirectURL,
-};
+export { discordBotToken, discordClientID, discordTestGuildID };
