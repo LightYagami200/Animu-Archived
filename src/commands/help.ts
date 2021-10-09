@@ -16,8 +16,21 @@ module.exports = {
     await interaction.reply({
       embeds: [
         new MessageEmbed({
-          title: 'Help',
-          description: '',
+          title: 'Animu - A tiny lil bundle of happiness',
+          description: "Type `/` and you'll get list of possible commands",
+          fields: [
+            {
+              name: 'Reactions',
+              value: 'Express yourself using a wide range of reactions',
+              inline: true,
+            },
+            {
+              name: 'Actions',
+              value:
+                'Interact with other members in a large number of ways',
+              inline: true,
+            },
+          ],
           color: 0x2196f3,
         }),
       ],
