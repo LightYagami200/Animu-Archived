@@ -42,6 +42,7 @@ module.exports = {
       );
 
       await ir.update({
+        content: '',
         embeds: [
           new MessageEmbed({
             title: `${
