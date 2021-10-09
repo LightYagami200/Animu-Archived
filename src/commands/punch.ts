@@ -2,15 +2,9 @@
 // SECTION | IMPORTS
 // ====================
 import { SlashCommandBuilder } from '@discordjs/builders';
-import {
-  ButtonInteraction,
-  CommandInteraction,
-  GuildMember,
-  MessageEmbed,
-} from 'discord.js';
-import { punch} from '@assets/json/action-gifs.json';
+import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js';
+import { punch } from '@assets/json/action-gifs.json';
 import _ from 'lodash';
-import confirm from '@utils/confirm';
 // ====================!SECTION
 
 // ====================
@@ -19,7 +13,7 @@ import confirm from '@utils/confirm';
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('punch')
-    .setDescription('punch someone')
+    .setDescription('Punch someone')
     .addUserOption((option) =>
       option
         .setName('user')
@@ -27,22 +21,22 @@ module.exports = {
         .setRequired(true),
     ),
   async execute(interaction: CommandInteraction) {
-      await interaction.reply({
-        embeds: [
-          new MessageEmbed({
-            title: `${
-              (interaction.member as GuildMember).displayName
-            } punched ${
-              (interaction.options.getMember('user') as GuildMember)
-                .displayName
-            }`,
-            image: {
-              url: _.sample(punch),
-            },
-          }),
-        ],
-        components: [],
-      });
+    await interaction.reply({
+      embeds: [
+        new MessageEmbed({
+          title: `${
+            (interaction.member as GuildMember).displayName
+          } punched ${
+            (interaction.options.getMember('user') as GuildMember)
+              .displayName
+          }`,
+          image: {
+            url: _.sample(punch),
+          },
+        }),
+      ],
+      components: [],
+    });
   },
 };
 // ====================!SECTION

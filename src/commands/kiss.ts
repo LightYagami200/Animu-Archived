@@ -19,7 +19,7 @@ import confirm from '@utils/confirm';
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('kiss')
-    .setDescription('kiss someone')
+    .setDescription('Kiss someone')
     .addUserOption((option) =>
       option
         .setName('user')

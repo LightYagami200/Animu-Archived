@@ -3,7 +3,7 @@
 // ====================
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js';
-import { afraid } from '@assets/json/reaction-gifs.json';
+import { scared } from '@assets/json/reaction-gifs.json';
 import _ from 'lodash';
 // ====================!SECTION
 
@@ -12,8 +12,8 @@ import _ from 'lodash';
 // ====================
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('afraid')
-    .setDescription('Afraid :)'),
+    .setName('scared')
+    .setDescription('Scared :('),
   async execute(interaction: CommandInteraction) {
     await interaction.reply({
       embeds: [
@@ -22,7 +22,7 @@ module.exports = {
             (interaction.member! as GuildMember).displayName
           } is scared`,
           image: {
-            url: _.sample(afraid),
+            url: _.sample(scared),
           },
         }),
       ],
