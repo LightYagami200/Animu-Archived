@@ -22,6 +22,7 @@ module.exports = {
     ),
   async execute(interaction: CommandInteraction) {
     await interaction.reply({
+      content: `${interaction.options.getMember('user') as GuildMember}`,
       embeds: [
         new MessageEmbed({
           title: `${
