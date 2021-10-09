@@ -20,7 +20,7 @@ module.exports = {
         new MessageEmbed({
           title: `${
             (interaction.member! as GuildMember).displayName
-          } is Smiling`,
+          } is Sad`,
           image: {
             url: _.sample(sad),
           },
