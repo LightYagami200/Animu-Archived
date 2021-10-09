@@ -8,7 +8,7 @@ import {
   GuildMember,
   MessageEmbed,
 } from 'discord.js';
-import { hug } from '@assets/json/action-gifs.json';
+import { slap} from '@assets/json/action-gifs.json';
 import _ from 'lodash';
 import confirm from '@utils/confirm';
 // ====================!SECTION
@@ -18,56 +18,31 @@ import confirm from '@utils/confirm';
 // ====================
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('hug')
-    .setDescription('hug someone')
+    .setName('slap')
+    .setDescription('Slap someone')
     .addUserOption((option) =>
       option
         .setName('user')
-        .setDescription('User to hug')
+        .setDescription('User to slap')
         .setRequired(true),
     ),
   async execute(interaction: CommandInteraction) {
-    await interaction.deferReply();
-
-    try {
-      const ir = await confirm(
-        interaction,
-        `${
-          interaction.options.getMember('user') as GuildMember
-        }, Would you like to allow ${
-          (interaction.member as GuildMember).displayName
-        } to hug you?`,
-        (interaction.options.getMember('user') as GuildMember).id,
-        60 * 1000,
-      );
-
-      await ir.update({
+      await interaction.reply({
         embeds: [
           new MessageEmbed({
             title: `${
               (interaction.member as GuildMember).displayName
-            } slaped ${
+            } slapped ${
               (interaction.options.getMember('user') as GuildMember)
                 .displayName
             }`,
             image: {
-              url: _.sample(hug),
+              url: _.sample(slap),
             },
           }),
         ],
         components: [],
       });
-    } catch (e) {
-      await (e as ButtonInteraction).update({
-        content: `Oof! ${
-          (interaction.options.getMember('user') as GuildMember)
-            .displayName
-        } denied hug by ${
-          (interaction.member as GuildMember).displayName
-        }`,
-        components: [],
-      });
-    }
   },
 };
 // ====================!SECTION
