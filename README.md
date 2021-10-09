@@ -39,5 +39,6 @@ DISCORD_TEST_GUILD_ID
 - And you're ready to go!
 
 ```
+npm run deploy-commands
 npm run start
 ```
