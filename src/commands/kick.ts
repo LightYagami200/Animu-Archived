@@ -8,7 +8,7 @@ import {
   GuildMember,
   MessageEmbed,
 } from 'discord.js';
-import { punch} from '@assets/json/action-gifs.json';
+import { kick} from '@assets/json/action-gifs.json';
 import _ from 'lodash';
 import confirm from '@utils/confirm';
 // ====================!SECTION
@@ -18,12 +18,12 @@ import confirm from '@utils/confirm';
 // ====================
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('punch')
-    .setDescription('punch someone')
+    .setName('kick')
+    .setDescription('kick someone')
     .addUserOption((option) =>
       option
         .setName('user')
-        .setDescription('User to punch')
+        .setDescription('User to kick')
         .setRequired(true),
     ),
   async execute(interaction: CommandInteraction) {
@@ -32,12 +32,12 @@ module.exports = {
           new MessageEmbed({
             title: `${
               (interaction.member as GuildMember).displayName
-            } punched ${
+            } kicked ${
               (interaction.options.getMember('user') as GuildMember)
                 .displayName
             }`,
             image: {
-              url: _.sample(punch),
+              url: _.sample(kick),
             },
           }),
         ],
