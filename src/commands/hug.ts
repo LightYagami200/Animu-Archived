@@ -46,7 +46,7 @@ module.exports = {
           new MessageEmbed({
             title: `${
               (interaction.member as GuildMember).displayName
-            } slaped ${
+            } hugged ${
               (interaction.options.getMember('user') as GuildMember)
                 .displayName
             }`,
