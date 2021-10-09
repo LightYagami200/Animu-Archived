@@ -2,7 +2,6 @@
 // SECTION | IMPORTS
 // ====================
 import 'module-alias/register';
-import { SlashCommandBuilder } from '@discordjs/builders';
 import { REST } from '@discordjs/rest';
 import {
   discordBotToken,
@@ -19,12 +18,12 @@ import { join } from 'path';
 // ====================
 const commands: unknown[] = [];
 
-const commandFiles = readdirSync(join(__dirname, 'commands')).filter(
+const commandFiles = readdirSync(join(__dirname, '..', 'commands')).filter(
   (file) => file.endsWith('.js'),
 );
 
 for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
+  const command = require(`../commands/${file}`);
 
   commands.push(command.data);
 }

@@ -14,11 +14,10 @@
     "paths": {
       "@keys": ["keys/index"],
       "@assets/*": ["assets/*"],
-      "@models/*": ["models/*"],
-      "@cron/*": ["cron/*"],
-      "@routes/v1/*": ["routes/api/v1/*"]
+      "@utils/*": ["utils/*"]
     },
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules"]
 }
