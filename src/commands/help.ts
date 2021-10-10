@@ -21,14 +21,13 @@ module.exports = {
           fields: [
             {
               name: 'Reactions',
-              value: 'Express yourself using a wide range of reactions',
-              inline: true,
+              value:
+                '`/cry`, `/evil`, `/happy`, `/idea`, `/love-eye`, `/panic`, `/sad`, `/scared`, `/scream`, `/sleepy`, `/smile`, `/smirk`, `think`',
             },
             {
               name: 'Actions',
               value:
-                'Interact with other members in a large number of ways',
-              inline: true,
+                '`/bonk`, `/headbutt`, `/hug`, `/kick`, `kill`, `/kiss`, `/pat`, `/punch`, `/shoot`, `/slap`, `/slash`, `/smack`, `/stab`',
             },
           ],
           color: 0x2196f3,
