@@ -1,19 +1,88 @@
 {
-  "pat": ["https://c.tenor.com/E6fMkQRZBdIAAAAC/kanna-kamui-pat.gif", "https://c.tenor.com/edHuxNBD6IMAAAAC/anime-head-pat.gif", "https://c.tenor.com/AnxesEqY2RwAAAAC/pat-anime.gif"],
-  "kick": ["https://c.tenor.com/WAyFcS5Mg84AAAAC/pandora-hearts-anime.gif", "https://c.tenor.com/4zwRLrLMGm8AAAAM/chifuyu-chifuyu-kick.gif", "https://c.tenor.com/lxd8SO_uRIYAAAAM/anime-kick.gif"],
-  "punch": ["https://c.tenor.com/SwMgGqBirvcAAAAM/saki-saki-kanojo-mo-kanojo.gif", "https://c.tenor.com/n7LKoJVrwM8AAAAM/anime-punch.gif", "https://c.tenor.com/wYyB8BBA8fIAAAAM/some-guy-getting-punch-anime-punching-some-guy-anime.gif"],
-  "bonk": ["https://c.tenor.com/2Dg7gi381O4AAAAC/no-chiochannotsuugakuro.gif", "https://c.tenor.com/JS0ZB_b3kjoAAAAC/sugiura-ayano-funami-yui.gif", "https://c.tenor.com/b5tAzjbsG68AAAAC/minmi-bonk.gif"],
-  "slap": ["https://c.tenor.com/xln2CRjLl00AAAAC/exultant-anime.gif", "https://c.tenor.com/XiYuU9h44-AAAAAC/anime-slap-mad.gif", "https://c.tenor.com/j6UWDrX6ZrwAAAAd/arima-ichika-ichika.gif"],
-  "shoot": ["https://c.tenor.com/AeOgMT85jokAAAAS/assasination-classrom-gun.gif", "https://c.tenor.com/4ZWVsqvrLN8AAAAC/shoot-anime.gif", "https://c.tenor.com/WvSUs_s7IpkAAAAC/l-lawliet-death-note.gif"],
-  "stab": ["https://c.tenor.com/t6ABAaRJEA0AAAAC/oreimo-ore-no-im%C5%8Dto-ga-konna-ni-kawaii-wake-ga-nai.gif", "https://c.tenor.com/-rM9lJr9BT8AAAAC/poke-anime.gif", "https://c.tenor.com/9CDRL40s-soAAAAM/anime-takoyaki.gif"],
-  "flick": ["https://c.tenor.com/vXVi4ncNnfAAAAAC/flick-anime.gif", "https://c.tenor.com/H6uCe2HP1yUAAAAC/flick-anime.gif", "https://c.tenor.com/GdSggM7v5QkAAAAM/fairy-tail-flick.gif"],
-  "high-five": ["https://c.tenor.com/hu5gEc6qLDAAAAAC/tape-coxa.gif", "https://c.tenor.com/rU9PEKyn4BsAAAAC/fairy-tail-nalu.gif", "https://c.tenor.com/VaOkUsy8UjMAAAAM/hi-five-high-five.gif"],
-  "smack": ["https://c.tenor.com/iDdGxlZZfGoAAAAC/powerful-head-slap.gif", "https://c.tenor.com/Sp7yE5UzqFMAAAAM/spank-slap.gif", "https://c.tenor.com/Jk-OiQBzVc8AAAAM/kimetsu-no-yaiba-anime.gif"],
-  "headbutt": ["https://c.tenor.com/fQCAFYFlwdgAAAAM/deadmanwonderland-ganta.gif", "https://c.tenor.com/0zAC3rdS_5kAAAAC/anime-headbutt.gif", "https://c.tenor.com/4AvIBPKxbOwAAAAM/demonslayer-headbutt.gif"],
-  "slash": ["https://c.tenor.com/cdYiI1zDcxQAAAAM/akame-akame-ga-k-ill.gif", "https://c.tenor.com/zKqCvldQLpUAAAAM/rory-mercury-slash.gif", "https://c.tenor.com/d5e_CMXqGXwAAAAM/anime-guiltycrown.gif"],
-  "kill": ["https://c.tenor.com/z5HVuzCiMWUAAAAM/angels-of-death-anime.gif", "https://c.tenor.com/t-0fYVPgg1YAAAAM/pink-hair-anime.gif", "https://c.tenor.com/V6k3KbrycpsAAAAM/anime-explosion.gif"],
-  "hug": ["https://c.tenor.com/WpbZhwwj6zAAAAAC/happy-hug.gif", "https://c.tenor.com/VqazOH8fQ8gAAAAC/anime-hug.gif", "https://c.tenor.com/5u1n4SYgd3AAAAAC/cuddle-nuzzle.gif"],
-  "kiss": ["https://c.tenor.com/3zdH2jC6qCcAAAAC/love-anime.gif", "https://c.tenor.com/VxNAxTOeT3YAAAAC/anime-kiss.gif", "https://c.tenor.com/JhgpAnpzd8UAAAAd/kiss-anime.gif", "https://c.tenor.com/hK8IUmweJWAAAAAM/kiss-me-%D0%BB%D1%8E%D0%B1%D0%BB%D1%8E.gif"],
-  "cuddle": ["https://c.tenor.com/EdoDOOomnfkAAAAM/cat-girl-affection.gif", "https://c.tenor.com/sK9icjg3xm4AAAAM/strugglesnuggle-annoyed.gif", "https://c.tenor.com/gowinK__PvAAAAAC/anime-cuddle.gif"],
-  "nom": ["https://c.tenor.com/9dOzFGFZxnoAAAAC/bite-anime.gif", "https://c.tenor.com/4j3hMz-dUz0AAAAC/anime-love.gif", "https://c.tenor.com/1LtA9dSoAIQAAAAC/zero-no-tsukaima-bite.gif"]
+  "pat": [
+    "https://c.tenor.com/E6fMkQRZBdIAAAAC/kanna-kamui-pat.gif", 
+    "https://c.tenor.com/edHuxNBD6IMAAAAC/anime-head-pat.gif", 
+    "https://c.tenor.com/AnxesEqY2RwAAAAC/pat-anime.gif"
+  ],
+  "kick": [
+    "https://c.tenor.com/WAyFcS5Mg84AAAAC/pandora-hearts-anime.gif", 
+    "https://c.tenor.com/4zwRLrLMGm8AAAAM/chifuyu-chifuyu-kick.gif", 
+    "https://c.tenor.com/lxd8SO_uRIYAAAAM/anime-kick.gif"
+  ],
+  "punch": [
+    "https://c.tenor.com/SwMgGqBirvcAAAAM/saki-saki-kanojo-mo-kanojo.gif", 
+    "https://c.tenor.com/n7LKoJVrwM8AAAAM/anime-punch.gif", 
+    "https://c.tenor.com/wYyB8BBA8fIAAAAM/some-guy-getting-punch-anime-punching-some-guy-anime.gif"
+  ],
+  "bonk": [
+    "https://c.tenor.com/2Dg7gi381O4AAAAC/no-chiochannotsuugakuro.gif", 
+    "https://c.tenor.com/JS0ZB_b3kjoAAAAC/sugiura-ayano-funami-yui.gif", 
+    "https://c.tenor.com/b5tAzjbsG68AAAAC/minmi-bonk.gif"
+  ],
+  "slap": [
+    "https://c.tenor.com/xln2CRjLl00AAAAC/exultant-anime.gif", 
+    "https://c.tenor.com/XiYuU9h44-AAAAAC/anime-slap-mad.gif", 
+    "https://c.tenor.com/j6UWDrX6ZrwAAAAd/arima-ichika-ichika.gif"
+  ],
+  "shoot": [
+    "https://c.tenor.com/AeOgMT85jokAAAAS/assasination-classrom-gun.gif", 
+    "https://c.tenor.com/4ZWVsqvrLN8AAAAC/shoot-anime.gif", 
+    "https://c.tenor.com/WvSUs_s7IpkAAAAC/l-lawliet-death-note.gif"
+  ],
+  "stab": [
+    "https://c.tenor.com/t6ABAaRJEA0AAAAC/oreimo-ore-no-im%C5%8Dto-ga-konna-ni-kawaii-wake-ga-nai.gif", 
+    "https://c.tenor.com/-rM9lJr9BT8AAAAC/poke-anime.gif", 
+    "https://c.tenor.com/9CDRL40s-soAAAAM/anime-takoyaki.gif"
+  ],
+  "flick": [
+    "https://c.tenor.com/vXVi4ncNnfAAAAAC/flick-anime.gif", 
+    "https://c.tenor.com/H6uCe2HP1yUAAAAC/flick-anime.gif", 
+    "https://c.tenor.com/GdSggM7v5QkAAAAM/fairy-tail-flick.gif"
+  ],
+  "high-five": [
+    "https://c.tenor.com/hu5gEc6qLDAAAAAC/tape-coxa.gif", 
+    "https://c.tenor.com/rU9PEKyn4BsAAAAC/fairy-tail-nalu.gif", 
+    "https://c.tenor.com/VaOkUsy8UjMAAAAM/hi-five-high-five.gif"
+  ],
+  "smack": [
+    "https://c.tenor.com/iDdGxlZZfGoAAAAC/powerful-head-slap.gif", 
+    "https://c.tenor.com/Sp7yE5UzqFMAAAAM/spank-slap.gif", 
+    "https://c.tenor.com/Jk-OiQBzVc8AAAAM/kimetsu-no-yaiba-anime.gif"
+  ],
+  "headbutt": [
+    "https://c.tenor.com/fQCAFYFlwdgAAAAM/deadmanwonderland-ganta.gif", 
+    "https://c.tenor.com/0zAC3rdS_5kAAAAC/anime-headbutt.gif", 
+    "https://c.tenor.com/4AvIBPKxbOwAAAAM/demonslayer-headbutt.gif"
+  ],
+  "slash": [
+    "https://c.tenor.com/cdYiI1zDcxQAAAAM/akame-akame-ga-k-ill.gif", 
+    "https://c.tenor.com/zKqCvldQLpUAAAAM/rory-mercury-slash.gif", 
+    "https://c.tenor.com/d5e_CMXqGXwAAAAM/anime-guiltycrown.gif"
+  ],
+  "kill": [
+    "https://c.tenor.com/z5HVuzCiMWUAAAAM/angels-of-death-anime.gif", 
+    "https://c.tenor.com/t-0fYVPgg1YAAAAM/pink-hair-anime.gif", 
+    "https://c.tenor.com/V6k3KbrycpsAAAAM/anime-explosion.gif"
+  ],
+  "hug": [
+    "https://c.tenor.com/WpbZhwwj6zAAAAAC/happy-hug.gif", 
+    "https://c.tenor.com/VqazOH8fQ8gAAAAC/anime-hug.gif", 
+    "https://c.tenor.com/5u1n4SYgd3AAAAAC/cuddle-nuzzle.gif"
+  ],
+  "kiss": [
+    "https://c.tenor.com/3zdH2jC6qCcAAAAC/love-anime.gif", 
+    "https://c.tenor.com/VxNAxTOeT3YAAAAC/anime-kiss.gif", 
+    "https://c.tenor.com/JhgpAnpzd8UAAAAd/kiss-anime.gif", 
+    "https://c.tenor.com/hK8IUmweJWAAAAAM/kiss-me-%D0%BB%D1%8E%D0%B1%D0%BB%D1%8E.gif"
+  ],
+  "cuddle": [
+    "https://c.tenor.com/EdoDOOomnfkAAAAM/cat-girl-affection.gif", 
+    "https://c.tenor.com/sK9icjg3xm4AAAAM/strugglesnuggle-annoyed.gif", 
+    "https://c.tenor.com/gowinK__PvAAAAAC/anime-cuddle.gif"
+  ],
+  "nom": [
+    "https://c.tenor.com/9dOzFGFZxnoAAAAC/bite-anime.gif", 
+    "https://c.tenor.com/4j3hMz-dUz0AAAAC/anime-love.gif", 
+    "https://c.tenor.com/1LtA9dSoAIQAAAAC/zero-no-tsukaima-bite.gif"
+  ]
 }
