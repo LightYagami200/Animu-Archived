@@ -37,6 +37,9 @@
     "@assets": "dist/assets",
     "@utils": "dist/utils"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "repository": "https://github.com/LightYagami200/Animu.git",
   "author": "Light Yagami <its_lightyagami@icloud.com>",
   "license": "MIT"
