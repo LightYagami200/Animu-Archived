@@ -34,6 +34,7 @@ rest
   .put(
     // @ts-ignore
     Routes.applicationGuildCommands(discordClientID, discordTestGuildID),
+    // Routes.applicationCommands(discordClientID),
     { body: commands },
   )
   .then(() => console.log('REGISTERED COMMANDS'))
