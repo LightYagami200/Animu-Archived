@@ -27,6 +27,15 @@ module.exports = {
         .setRequired(true),
     ),
   async execute(interaction: CommandInteraction) {
+    if (
+      (interaction.options.getMember('user') as GuildMember).id ===
+      (interaction.member as GuildMember).id
+    )
+      return interaction.reply({
+        content: "You can't kiss yourself",
+        ephemeral: true,
+      });
+
     await interaction.deferReply();
 
     try {
