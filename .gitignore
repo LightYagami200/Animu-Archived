@@ -2,3 +2,4 @@ dist
 node_modules
 dev.ts
 dev.js
+.DS_Store
