@@ -2,10 +2,12 @@
 // SECTION | IMPORTS
 // ====================
 import 'module-alias/register';
-import { discordBotToken } from '@keys';
+import { discordBotToken, mongoConnectionString } from '@keys';
 import { Client, Collection, Intents } from 'discord.js';
 import { readdirSync } from 'fs';
 import { join } from 'path';
+import logCommandUsage from '@utils/logUsage';
+import { connect, connection } from 'mongoose';
 // ====================!SECTION
 
 // ====================
@@ -39,10 +41,20 @@ for (const file of commandFiles) {
 // ====================
 // SECTION | MAIN
 // ====================
+// -> Connect with DB
+connect(mongoConnectionString);
+
+// -> When connected to MongoDB
+connection.once('open', async () => {
+  console.log('Database Status: Online');
+});
+
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isCommand() && !interaction.isContextMenu()) return;
 
   const { commandName } = interaction;
+
+  logCommandUsage(commandName);
 
   if (!commandsCollection.has(commandName)) return;
 
@@ -63,6 +75,7 @@ client.on('interactionCreate', async (interaction) => {
 // ====================
 try {
   client.login(discordBotToken);
+  console.log('Bot Status: Online');
 } catch (error) {
   console.error(error);
 }

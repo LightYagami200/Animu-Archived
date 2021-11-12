@@ -6,5 +6,11 @@ const keys =
 const discordBotToken: string = keys.discordBotToken;
 const discordClientID: string = keys.discordClientID;
 const discordTestGuildID: string = keys.discordTestGuildID;
+const mongoConnectionString: string = keys.mongoConnectionString;
 
-export { discordBotToken, discordClientID, discordTestGuildID };
+export {
+  discordBotToken,
+  discordClientID,
+  discordTestGuildID,
+  mongoConnectionString,
+};

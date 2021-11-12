@@ -18,7 +18,8 @@
     "discord.js": "^13.1.0",
     "dotenv": "^9.0.0",
     "lodash": "^4.17.21",
-    "module-alias": "^2.2.2"
+    "module-alias": "^2.2.2",
+    "mongoose": "^6.0.12"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.175",
@@ -35,6 +36,7 @@
   "_moduleAliases": {
     "@keys": "dist/keys/index",
     "@assets": "dist/assets",
+    "@models": "dist/models",
     "@utils": "dist/utils"
   },
   "engines": {
