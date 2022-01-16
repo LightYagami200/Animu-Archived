@@ -16,7 +16,8 @@ jobs:
           fetch-depth: 0
 
       - name: Push to dokku
-        uses: dokku/github-action@master
+        uses: idoberko2/dokku-deploy-github-action@v1
         with:
-          git_remote_url: 'ssh://dokku@167.179.65.118:22/animu'
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          dokku-host: '167.179.65.118'
+          app-name: 'animu'
