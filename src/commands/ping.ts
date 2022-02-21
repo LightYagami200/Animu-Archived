@@ -1,13 +1,13 @@
-// ====================
+// =====================
 // SECTION | IMPORTS
-// ====================
+// =====================
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
-// ====================!SECTION
+// =====================!SECTION
 
-// ====================
+// =====================
 // SECTION | COMMAND
-// ====================
+// =====================
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('ping')
@@ -16,4 +16,4 @@ module.exports = {
     await interaction.reply({ ephemeral: true, content: 'Pong!' });
   },
 };
-// ====================!SECTION
+// =====================!SECTION

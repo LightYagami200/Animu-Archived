@@ -1,6 +1,6 @@
-// ====================
+// =====================
 // SECTION | IMPORTS
-// ====================
+// =====================
 import {
   ButtonInteraction,
   CommandInteraction,
@@ -8,11 +8,11 @@ import {
   MessageActionRow,
   MessageButton,
 } from 'discord.js';
-// ====================!SECTION
+// =====================!SECTION
 
-// ====================
+// =====================
 // SECTION | CONFIRM
-// ====================
+// =====================
 function confirm(
   interaction: CommandInteraction,
   confirmationMessage: string,
@@ -75,4 +75,4 @@ function confirm(
 }
 
 export default confirm;
-// ====================!SECTION
+// =====================!SECTION

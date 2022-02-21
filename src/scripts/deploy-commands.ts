@@ -1,6 +1,6 @@
-// ====================
+// =====================
 // SECTION | IMPORTS
-// ====================
+// =====================
 import 'module-alias/register';
 import { REST } from '@discordjs/rest';
 import {
@@ -11,11 +11,11 @@ import {
 import { Routes } from 'discord-api-types/v9';
 import { readdirSync } from 'fs';
 import { join } from 'path';
-// ====================!SECTION
+// =====================!SECTION
 
-// ====================
+// =====================
 // SECTION | COMMANDS
-// ====================
+// =====================
 const commands: unknown[] = [];
 
 const commandFiles = readdirSync(join(__dirname, '..', 'commands')).filter(
@@ -39,4 +39,4 @@ rest
   )
   .then(() => console.log('REGISTERED COMMANDS'))
   .catch(console.error);
-// ====================!SECTION
+// =====================!SECTION

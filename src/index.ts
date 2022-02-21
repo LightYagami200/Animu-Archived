@@ -1,6 +1,6 @@
-// ====================
+// =====================
 // SECTION | IMPORTS
-// ====================
+// =====================
 import 'module-alias/register';
 import { discordBotToken, mongoConnectionString } from '@keys';
 import { Client, Collection, Intents } from 'discord.js';
@@ -8,11 +8,11 @@ import { readdirSync } from 'fs';
 import { join } from 'path';
 import logCommandUsage from '@utils/logUsage';
 import { connect, connection } from 'mongoose';
-// ====================!SECTION
+// =====================!SECTION
 
-// ====================
+// =====================
 // SECTION | CLIENT
-// ====================
+// =====================
 const commandFiles = readdirSync(join(__dirname, 'commands')).filter(
   (file) => file.endsWith('.js'),
 );
@@ -36,11 +36,11 @@ for (const file of commandFiles) {
 
   commandsCollection.set(command.data.name, command);
 }
-// ====================!SECTION
+// =====================!SECTION
 
-// ====================
+// =====================
 // SECTION | MAIN
-// ====================
+// =====================
 // -> Connect with DB
 connect(mongoConnectionString);
 
@@ -68,15 +68,15 @@ client.on('interactionCreate', async (interaction) => {
     });
   }
 });
-// ====================!SECTION
+// =====================!SECTION
 
-// ====================
+// =====================
 // SECTION | LOGIN
-// ====================
+// =====================
 try {
   client.login(discordBotToken);
   console.log('Bot Status: Online');
 } catch (error) {
   console.error(error);
 }
-// ====================!SECTION
+// =====================!SECTION

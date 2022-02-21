@@ -1,13 +1,13 @@
-// ====================
+// =====================
 // SECTION | IMPORTS
-// ====================
+// =====================
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
-// ====================!SECTION
+// =====================!SECTION
 
-// ====================
+// =====================
 // SECTION | COMMAND
-// ====================
+// =====================
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('help')
@@ -37,4 +37,4 @@ module.exports = {
     });
   },
 };
-// ====================!SECTION
+// =====================!SECTION

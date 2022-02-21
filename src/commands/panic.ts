@@ -1,15 +1,15 @@
-// ====================
+// =====================
 // SECTION | IMPORTS
-// ====================
+// =====================
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js';
 import { panic } from '@assets/json/reaction-gifs.json';
 import _ from 'lodash';
-// ====================!SECTION
+// =====================!SECTION
 
-// ====================
+// =====================
 // SECTION | COMMAND
-// ====================
+// =====================
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('panic')
@@ -29,4 +29,4 @@ module.exports = {
     });
   },
 };
-// ====================!SECTION
+// =====================!SECTION

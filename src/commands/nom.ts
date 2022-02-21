@@ -1,15 +1,15 @@
-// ====================
+// =====================
 // SECTION | IMPORTS
-// ====================
+// =====================
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js';
 import { nom } from '@assets/json/action-gifs.json';
 import _ from 'lodash';
-// ====================!SECTION
+// =====================!SECTION
 
-// ====================
+// =====================
 // SECTION | COMMAND
-// ====================
+// =====================
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('nom')
@@ -49,4 +49,4 @@ module.exports = {
     });
   },
 };
-// ====================!SECTION
+// =====================!SECTION

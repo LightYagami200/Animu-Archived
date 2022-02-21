@@ -1,6 +1,6 @@
-// ====================
+// =====================
 // SECTION | IMPORTS
-// ====================
+// =====================
 import { SlashCommandBuilder } from '@discordjs/builders';
 import {
   ButtonInteraction,
@@ -11,11 +11,11 @@ import {
 import { hug } from '@assets/json/action-gifs.json';
 import _ from 'lodash';
 import confirm from '@utils/confirm';
-// ====================!SECTION
+// =====================!SECTION
 
-// ====================
+// =====================
 // SECTION | COMMAND
-// ====================
+// =====================
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('hug')
@@ -80,4 +80,4 @@ module.exports = {
     }
   },
 };
-// ====================!SECTION
+// =====================!SECTION
