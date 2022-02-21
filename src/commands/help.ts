@@ -17,7 +17,8 @@ module.exports = {
       embeds: [
         new MessageEmbed({
           title: 'Animu - A tiny lil bundle of happiness',
-          description: "Type `/` and you'll get list of possible commands",
+          description:
+            "Here's the list of all the awesome commands you can use!",
           fields: [
             {
               name: 'Reactions',
@@ -28,6 +29,10 @@ module.exports = {
               name: 'Actions',
               value:
                 '`/bonk`, `/headbutt`, `/hug`, `/kick`, `kill`, `/kiss`, `/pat`, `/punch`, `/shoot`, `/slap`, `/slash`, `/smack`, `/stab`',
+            },
+            {
+              name: 'Randomness',
+              value: '`/flip-coin`. `/choose`',
             },
           ],
           color: 0x2196f3,
