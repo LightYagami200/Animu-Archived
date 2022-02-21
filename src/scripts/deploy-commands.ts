@@ -32,9 +32,12 @@ const rest = new REST({ version: '9' }).setToken(discordBotToken);
 
 rest
   .put(
-    // @ts-ignore
-    Routes.applicationGuildCommands(discordClientID, discordTestGuildID),
-    // Routes.applicationCommands(discordClientID),
+    process.env.NODE_ENV === 'production'
+      ? Routes.applicationCommands(discordClientID)
+      : Routes.applicationGuildCommands(
+          discordClientID,
+          discordTestGuildID,
+        ),
     { body: commands },
   )
   .then(() => console.log('REGISTERED COMMANDS'))

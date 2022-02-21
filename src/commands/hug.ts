@@ -9,7 +9,7 @@ import {
   MessageEmbed,
 } from 'discord.js';
 import { hug } from '@assets/json/action-gifs.json';
-import _ from 'lodash';
+import { sample } from 'lodash';
 import confirm from '@utils/confirm';
 // =====================!SECTION
 
@@ -61,7 +61,7 @@ module.exports = {
                 .displayName
             }`,
             image: {
-              url: _.sample(hug),
+              url: sample(hug),
             },
           }),
         ],

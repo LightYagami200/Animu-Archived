@@ -4,7 +4,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js';
 import { loveEye } from '@assets/json/reaction-gifs.json';
-import _ from 'lodash';
+import { sample } from 'lodash';
 // =====================!SECTION
 
 // =====================
@@ -22,7 +22,7 @@ module.exports = {
             (interaction.member! as GuildMember).displayName
           } is love struck`,
           image: {
-            url: _.sample(loveEye),
+            url: sample(loveEye),
           },
         }),
       ],

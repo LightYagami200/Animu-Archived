@@ -13,6 +13,14 @@ import {
 // =====================
 // SECTION | CONFIRM
 // =====================
+/**
+ * Confirm an interaction
+ *
+ * @param interaction - Interaction that requires confirmation
+ * @param confirmationMessage - Message to display for confirmation
+ * @param confirmationUserID - ID of user to require confirmation from
+ * @param time - Time to wait for confirmation
+ */
 function confirm(
   interaction: CommandInteraction,
   confirmationMessage: string,

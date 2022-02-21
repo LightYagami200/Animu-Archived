@@ -9,8 +9,8 @@ import {
   MessageEmbed,
 } from 'discord.js';
 import { cuddle } from '@assets/json/action-gifs.json';
-import _ from 'lodash';
 import confirm from '@utils/confirm';
+import { sample } from 'lodash';
 // =====================!SECTION
 
 // =====================
@@ -61,7 +61,7 @@ module.exports = {
                 .displayName
             }`,
             image: {
-              url: _.sample(cuddle),
+              url: sample(cuddle),
             },
           }),
         ],

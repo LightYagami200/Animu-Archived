@@ -4,7 +4,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js';
 import { slash } from '@assets/json/action-gifs.json';
-import _ from 'lodash';
+import { sample } from 'lodash';
 // =====================!SECTION
 
 // =====================
@@ -41,7 +41,7 @@ module.exports = {
               .displayName
           }`,
           image: {
-            url: _.sample(slash),
+            url: sample(slash),
           },
         }),
       ],
