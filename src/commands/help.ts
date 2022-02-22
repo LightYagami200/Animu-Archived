@@ -32,7 +32,7 @@ module.exports = {
             },
             {
               name: 'Randomness',
-              value: '`/flip-coin`. `/choose`',
+              value: '`/flip-coin`. `/choose`, `/roll-dice`',
             },
             {
               name: 'Fun',
