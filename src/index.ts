@@ -16,6 +16,9 @@ import { logCommandUsage } from '@utils';
 const commandFiles = readdirSync(join(__dirname, 'commands')).filter(
   (file) => file.endsWith('.js'),
 );
+const eventFiles = readdirSync(join(__dirname, 'events')).filter((file) =>
+  file.endsWith('.js'),
+);
 
 const client = new Client({
   presence: {
@@ -49,6 +52,17 @@ connection.once('open', async () => {
   console.log('Database Status: Online');
 });
 
+// -> Handle Events
+for (const file of eventFiles) {
+  const event = require(`./events/${file}`);
+  if (event.once) {
+    client.once(event.name, (...args) => event.execute(...args));
+  } else {
+    client.on(event.name, (...args) => event.execute(...args));
+  }
+}
+
+// -> Handle Commands
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isCommand() && !interaction.isContextMenu()) return;
 
