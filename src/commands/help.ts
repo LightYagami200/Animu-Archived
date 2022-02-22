@@ -34,6 +34,10 @@ module.exports = {
               name: 'Randomness',
               value: '`/flip-coin`. `/choose`',
             },
+            {
+              name: 'Fun',
+              value: '`/pp`. `/butt`',
+            },
           ],
           color: 0x2196f3,
         }),
