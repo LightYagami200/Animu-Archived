@@ -10,7 +10,7 @@ import {
 } from 'discord.js';
 import { kiss } from '@assets/json/action-gifs.json';
 import { sample } from 'lodash';
-import confirm from '@utils/confirm';
+import { confirm } from '@utils';
 // =====================!SECTION
 
 // =====================

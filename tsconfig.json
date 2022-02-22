@@ -15,7 +15,7 @@
       "@keys": ["keys/index"],
       "@assets/*": ["assets/*"],
       "@models/*": ["models/*"],
-      "@utils/*": ["utils/*"]
+      "@utils": ["utils/index"]
     },
     "noImplicitAny": true,
     "resolveJsonModule": true

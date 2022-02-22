@@ -9,7 +9,7 @@ import {
   MessageEmbed,
 } from 'discord.js';
 import { cuddle } from '@assets/json/action-gifs.json';
-import confirm from '@utils/confirm';
+import { confirm } from '@utils';
 import { sample } from 'lodash';
 // =====================!SECTION
 

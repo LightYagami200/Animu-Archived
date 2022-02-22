@@ -2,12 +2,12 @@
 // SECTION | IMPORTS
 // =====================
 import 'module-alias/register';
-import { discordBotToken, mongoConnectionString } from '@keys';
 import { Client, Collection, Intents } from 'discord.js';
 import { readdirSync } from 'fs';
 import { join } from 'path';
-import logCommandUsage from '@utils/logUsage';
 import { connect, connection } from 'mongoose';
+import { discordBotToken, mongoConnectionString } from '@keys';
+import { logCommandUsage } from '@utils';
 // =====================!SECTION
 
 // =====================
