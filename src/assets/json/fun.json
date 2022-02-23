@@ -7,5 +7,9 @@
     "$USER's butt is really gross... ew",
     "$USER's butt is perfect",
     "Keep $USER's butt away from me"
+  ],
+  "coolness": [
+    "$USER is about as cool as the Sahara desert in summer",
+    "$USER is so cool everything around them freezes"
   ]
 }
