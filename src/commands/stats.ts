@@ -3,6 +3,7 @@
 // =====================
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
+import teamCheck from 'utils/teamCheck';
 // =====================!SECTION
 
 // =====================
@@ -13,6 +14,10 @@ module.exports = {
     .setName('stats')
     .setDescription('View bot stats - Animu Team only :)'),
   async execute(interaction: CommandInteraction) {
+    const hasAccess = await teamCheck(interaction);
+
+    if (!hasAccess) return;
+
     const guildCount = interaction.client.guilds.cache.size;
 
     return await interaction.reply({
