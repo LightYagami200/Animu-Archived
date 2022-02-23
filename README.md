@@ -6,6 +6,7 @@ A tiny lil bundle of happiness
 
 - Reactions to let everyone know how you're feeling
 - Actions to interact with other members; pat, hug, etc
+- Some fun commands
 
 ## How to deploy/self-host?
 
@@ -42,3 +43,9 @@ DISCORD_TEST_GUILD_ID
 npm run deploy-commands
 npm run start
 ```
+
+## Commands
+
+| #   | Command | Category | Description        |
+| --- | ------- | -------- | ------------------ |
+| 1   | `!help` | General  | Shows help message |

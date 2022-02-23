@@ -8,6 +8,9 @@ const discordClientID: string = keys.discordClientID;
 const discordTestGuildID: string = keys.discordTestGuildID;
 const mongoConnectionString: string = keys.mongoConnectionString;
 const topGGToken: string = keys.topGGToken;
+const teamMembers: string[] = keys.teamMembers
+  .split(',')
+  .map((s: string) => s.trim());
 
 export {
   discordBotToken,
@@ -15,4 +18,5 @@ export {
   discordTestGuildID,
   mongoConnectionString,
   topGGToken,
+  teamMembers,
 };
