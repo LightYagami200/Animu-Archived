@@ -13,7 +13,7 @@ module.exports = {
     .setName('ping')
     .setDescription('Check if Animu is alive'),
   async execute(interaction: CommandInteraction) {
-    await interaction.reply({ ephemeral: true, content: 'Pong!' });
+    await interaction.reply({ ephemeral: true, content: '🏓 Pong!' });
   },
 };
 // =====================!SECTION
