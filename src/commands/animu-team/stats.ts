@@ -3,7 +3,7 @@
 // =====================
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
-import teamCheck from 'utils/teamCheck';
+import { teamCheck } from '@utils';
 // =====================!SECTION
 
 // =====================

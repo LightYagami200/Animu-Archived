@@ -18,14 +18,25 @@ import { join } from 'path';
 // =====================
 const commands: unknown[] = [];
 
-const commandFiles = readdirSync(join(__dirname, '..', 'commands')).filter(
-  (file) => file.endsWith('.js'),
-);
+// -> Read command folders
+const commandFolders = readdirSync(join(__dirname, '..', 'commands'));
 
-for (const file of commandFiles) {
-  const command = require(`../commands/${file}`);
+// -> Read command files
+for (const folder of commandFolders) {
+  const commandFiles = readdirSync(
+    join(__dirname, '..', 'commands', folder),
+  );
 
-  commands.push(command.data);
+  for (const file of commandFiles) {
+    const command = require(join(
+      __dirname,
+      '..',
+      'commands',
+      folder,
+      file,
+    ));
+    commands.push(command);
+  }
 }
 
 const rest = new REST({ version: '9' }).setToken(discordBotToken);
