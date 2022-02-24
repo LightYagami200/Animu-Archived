@@ -8,12 +8,16 @@ import { CommandInteraction } from 'discord.js';
 // =====================
 // SECTION | Team Check
 // =====================
-async function teamCheck(interaction: CommandInteraction) {
+async function teamCheck(
+  interaction: CommandInteraction,
+  required: boolean = true,
+) {
   if (!teamMembers.includes(interaction.user.id)) {
-    await interaction.reply({
-      content: 'This command is only available to Animu Team members!',
-      ephemeral: true,
-    });
+    if (required)
+      await interaction.reply({
+        content: 'This command is only available to Animu Team members!',
+        ephemeral: true,
+      });
 
     return false;
   }

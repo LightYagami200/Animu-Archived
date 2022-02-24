@@ -30,7 +30,7 @@ module.exports = {
     });
 
     // -> Is Animu Team Member?
-    const isAnimuTeamMember = await teamCheck(interaction);
+    const isAnimuTeamMember = await teamCheck(interaction, false);
 
     // -> Read command categories
     const categories = readdirSync(join(__dirname, '..')).filter(
