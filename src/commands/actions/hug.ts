@@ -51,7 +51,7 @@ module.exports = {
       );
 
       await ir.update({
-        content: '',
+        content: `${interaction.options.getMember('user')}`,
         embeds: [
           new MessageEmbed({
             title: `${
