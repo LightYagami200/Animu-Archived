@@ -25,7 +25,7 @@ const commandFolders = readdirSync(join(__dirname, '..', 'commands'));
 for (const folder of commandFolders) {
   const commandFiles = readdirSync(
     join(__dirname, '..', 'commands', folder),
-  );
+  ).filter((file) => file.endsWith('.js'));
 
   for (const file of commandFiles) {
     const command = require(join(
@@ -35,7 +35,7 @@ for (const folder of commandFolders) {
       folder,
       file,
     ));
-    commands.push(command);
+    commands.push(command.data.toJSON());
   }
 }
 

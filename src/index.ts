@@ -13,9 +13,9 @@ import { logCommandUsage } from '@utils';
 // =====================
 // SECTION | CLIENT
 // =====================
-const commandFiles = readdirSync(join(__dirname, 'commands')).filter(
-  (file) => file.endsWith('.js'),
-);
+// -> Read command folders
+const commandFolders = readdirSync(join(__dirname, 'commands'));
+
 const eventFiles = readdirSync(join(__dirname, 'events')).filter((file) =>
   file.endsWith('.js'),
 );
@@ -34,10 +34,16 @@ const client = new Client({
 
 const commandsCollection: Collection<string, any> = new Collection();
 
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
+// -> Read command files
+for (const folder of commandFolders) {
+  const commandFiles = readdirSync(
+    join(__dirname, 'commands', folder),
+  ).filter((file) => file.endsWith('.js'));
 
-  commandsCollection.set(command.data.name, command);
+  for (const file of commandFiles) {
+    const command = require(join(__dirname, 'commands', folder, file));
+    commandsCollection.set(command.data.name, command);
+  }
 }
 // =====================!SECTION
 

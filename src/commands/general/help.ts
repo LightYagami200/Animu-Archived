@@ -2,7 +2,18 @@
 // SECTION | IMPORTS
 // =====================
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { teamCheck } from '@utils';
+import {
+  CommandInteraction,
+  Message,
+  MessageActionRow,
+  MessageEmbed,
+  MessageSelectMenu,
+  SelectMenuInteraction,
+} from 'discord.js';
+import { readdirSync } from 'fs';
+import { startCase, toLower } from 'lodash';
+import { join } from 'path';
 // =====================!SECTION
 
 // =====================
@@ -13,37 +24,219 @@ module.exports = {
     .setName('help')
     .setDescription("Animu Chan's here to help you out :D"),
   async execute(interaction: CommandInteraction) {
-    await interaction.reply({
-      embeds: [
-        new MessageEmbed({
-          title: 'Animu - A tiny lil bundle of happiness',
-          description:
-            "Here's the list of all the awesome commands you can use!",
-          fields: [
-            {
-              name: 'Reactions',
-              value:
-                '`/cry`, `/evil`, `/happy`, `/idea`, `/love-eye`, `/panic`, `/sad`, `/scared`, `/scream`, `/sleepy`, `/smile`, `/smirk`, `think`',
-            },
-            {
-              name: 'Actions',
-              value:
-                '`/bonk`, `/headbutt`, `/hug`, `/kick`, `kill`, `/kiss`, `/pat`, `/punch`, `/shoot`, `/slap`, `/slash`, `/smack`, `/stab`',
-            },
-            {
-              name: 'Randomness',
-              value: '`/flip-coin`. `/choose`, `/roll-dice`',
-            },
-            {
-              name: 'Fun',
-              value: '`/pp`. `/butt`',
-            },
-          ],
-          color: 0x2196f3,
-        }),
-      ],
+    // -> Defer
+    await interaction.deferReply({
       ephemeral: true,
+    });
+
+    // -> Is Animu Team Member?
+    const isAnimuTeamMember = await teamCheck(interaction);
+
+    // -> Read command categories
+    const categories = readdirSync(join(__dirname, '..')).filter(
+      (c) => c !== 'animu-team' || isAnimuTeamMember,
+    );
+
+    // -> State
+    let selectedCategory: string | undefined;
+    let selectedCategoryCommands: unknown[] = [];
+    let selectedCommand:
+      | { options: any[]; name: string; description: string }
+      | undefined;
+
+    // -> Reply
+    const message = (await interaction.editReply({
+      embeds: helpEmbed(selectedCategory, selectedCommand),
+      components: helpComponents(
+        categories,
+        selectedCategory,
+        selectedCategoryCommands,
+        selectedCommand,
+      ),
+    })) as Message;
+
+    // -> Start Collector
+    const componentCollector = message.createMessageComponentCollector({
+      filter: (i) =>
+        i.user.id === interaction.user.id && i.customId.startsWith('help'),
+      time: 120000,
+    });
+
+    // -> On button action
+    componentCollector.on('collect', async (i) => {
+      switch (i.customId) {
+        case 'help:category':
+          selectedCategory = (i as SelectMenuInteraction).values[0];
+
+          // -> Read command files
+          const commandFiles = readdirSync(
+            join(__dirname, '..', selectedCategory),
+          );
+
+          for (const file of commandFiles) {
+            const command = require(join(
+              __dirname,
+              '..',
+              selectedCategory,
+              file,
+            ));
+            selectedCategoryCommands.push(command);
+          }
+
+          i.update({
+            embeds: helpEmbed(selectedCategory, selectedCommand),
+            components: helpComponents(
+              categories,
+              selectedCategory,
+              selectedCategoryCommands,
+              selectedCommand,
+            ),
+          });
+          break;
+
+        case 'help:command':
+          const command = (i as SelectMenuInteraction).values[0];
+
+          // -> Get command
+          // @ts-ignore
+          selectedCommand = selectedCategoryCommands.find(
+            // @ts-ignore
+            (c) => c.data.name === command,
+          ).data as { options: any[]; name: string; description: string };
+
+          // -> Reply
+          await i.update({
+            embeds: helpEmbed(selectedCategory, selectedCommand),
+            components: helpComponents(
+              categories,
+              selectedCategory,
+              selectedCategoryCommands,
+              selectedCommand,
+            ),
+          });
+          break;
+
+        default:
+          break;
+      }
+    });
+
+    // -> Destroy collector
+    componentCollector.on('end', async () => {
+      try {
+        if (interaction)
+          interaction.editReply({
+            content: 'Interaction Disabled - Please dismiss the message',
+            embeds: [],
+            components: [],
+          });
+      } catch (e) {}
     });
   },
 };
+// =====================!SECTION
+
+// =====================
+// SECTION | UTILS
+// =====================
+function helpEmbed(
+  selectedCategory?: string,
+  selectedCommand?: {
+    options: {
+      name: string;
+      description: string;
+      required: boolean;
+      type: number;
+    }[];
+    name: string;
+    description: string;
+  },
+) {
+  console.log({ selectedCommand });
+  console.log({ options: selectedCommand?.options });
+
+  const embed = new MessageEmbed({
+    title: selectedCommand
+      ? startCase(toLower(selectedCommand.name.replace('-', ' ')))
+      : 'Animu - A tiny lil bundle of happiness',
+    description: selectedCommand
+      ? selectedCommand.description
+      : "Here's the list of all the awesome commands you can use!",
+    color: 0x2196f3,
+  });
+
+  if (selectedCommand && selectedCategory)
+    embed.addField(
+      'Category',
+      startCase(toLower(selectedCategory.replace('-', ' '))),
+      true,
+    );
+
+  if (selectedCommand)
+    embed.addField(
+      'Usage',
+      `/${selectedCommand.name} ${selectedCommand.options
+        .map((option) =>
+          option.required ? `<${option.name}>` : `[${option.name}]`,
+        )
+        .join(' ')}`,
+      true,
+    );
+
+  return [embed];
+}
+
+function helpComponents(
+  categories: string[],
+  selectedCategory?: string,
+  selectedCategoryCommands: unknown[] = [],
+  selectedCommand:
+    | { options: any[]; name: string; description: string }
+    | undefined = undefined,
+) {
+  const components: MessageActionRow[] = [];
+
+  // -> Add category select menu
+  components.push(
+    new MessageActionRow({
+      components: [
+        new MessageSelectMenu({
+          placeholder: 'Category',
+          custom_id: 'help:category',
+          options: categories.map((category) => ({
+            label: startCase(toLower(category.replace('-', ' '))),
+            value: category,
+            default: category === selectedCategory,
+          })),
+        }),
+      ],
+    }),
+  );
+
+  // -> If category selected
+  if (selectedCategoryCommands.length) {
+    components.push(
+      new MessageActionRow({
+        components: [
+          new MessageSelectMenu({
+            placeholder: 'Command',
+            custom_id: 'help:command',
+            options: selectedCategoryCommands.map((command) => ({
+              // @ts-ignore
+              label: startCase(toLower(command.data.name)),
+              // @ts-ignore
+              description: command.data.description,
+              // @ts-ignore
+              value: command.data.name,
+              // @ts-ignore
+              default: command.data.name === selectedCommand?.name,
+            })),
+          }),
+        ],
+      }),
+    );
+  }
+
+  return components;
+}
 // =====================!SECTION
