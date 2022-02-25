@@ -11,5 +11,31 @@
   "coolness": [
     "$USER is about as cool as the Sahara desert in summer",
     "$USER is so cool everything around them freezes"
-  ]
+  ],
+  "ship": {
+    "<=10": "🌊 This ship sunk before it even had a chance to leave shallow waters",
+    "<=30": "🧊 Iceberg up ahead",
+    "<=50": "🦇 Still a better love story than twilight",
+    "===69": "💘 Nice",
+    "<=70": "🛶 This ship is barely floating",
+    "<=80": "🛥️ This ship might have some future",
+    "<=99": "🚢 This ship is on a roll",
+    "===100": "🏝️ As pewdiepie once said, NOW FRICK!"
+  },
+  "iq": {
+    "<=50": "🪨 $USER is as dumb as a rock",
+    "===69": "♾️ $USER's IQ is nice!",
+    "<=70": "💨 I wonder what has more air? A bag of chips or $USER's brain?",
+    "<=90": "🧠 $USER has a smol brain",
+    "<=100": "🧠 $USER's intelligence is above that of an average BNHA fan",
+    "<=110": "🧠 $USER, Congrats on having average intelligence",
+    "<=120": "🧠 $USER is more smart than 4 K-pop Stans combined",
+    "<=130": "🧠 $USER is more smart than 8 K-pop Stans combined",
+    "<=140": "🧠 $USER've got a big brain",
+    "<=160": "🧠 $USER, That's one heck of a huge brain",
+    "===169": "♾️ $USER has a big brain and nice IQ",
+    "<=180": "🗻 $USER's brain is as big as this mountain",
+    "<=199": "🌍 $USER's brain is the size of this planet",
+    "===200": "🌌 $USER is officially a 4 dimensional creature"
+  }
 }

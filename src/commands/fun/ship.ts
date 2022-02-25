@@ -2,8 +2,9 @@
 // SECTION | IMPORTS
 // =====================
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { mulberry32 } from '@utils';
 import { CommandInteraction, GuildMember } from 'discord.js';
+import { mulberry32 } from '@utils';
+import { ship } from '@assets/json/fun.json';
 // =====================!SECTION
 
 // =====================
@@ -47,29 +48,29 @@ module.exports = {
       });
 
     // -> Generate ship %
-    const ship = Math.floor(
+    const shipPercent = Math.floor(
       mulberry32(parseInt(soul1.id) + parseInt(soul2.id)) * 100,
     );
 
     // -> Reply
     await interaction.reply({
-      content: `${soul1} ${ship < 50 ? '💔' : '💖'} ${soul2}\n${
-        ship <= 10
-          ? '🌊 This ship sunk before it even had a chance to leave shallow waters'
-          : ship <= 30
-          ? '🧊 Iceberg up ahead'
-          : ship <= 50
-          ? '🦇 Story of this ship is almost as bad as twilight'
-          : ship === 69
-          ? '💘 Nice'
-          : ship <= 70
-          ? '🛶 This ship is barely floating'
-          : ship <= 80
-          ? '🛥️ This ship might have some future'
-          : ship <= 99
-          ? '🚢 This ship is on a roll'
-          : '🏝️ As pewdiepie once said, NOW FRICK!'
-      } - **${ship}%**`,
+      content: `${soul1} ${shipPercent < 50 ? '💔' : '💖'} ${soul2}\n${
+        shipPercent <= 10
+          ? ship['<=10']
+          : shipPercent <= 30
+          ? ship['<=30']
+          : shipPercent <= 50
+          ? ship['<=50']
+          : shipPercent === 69
+          ? ship['===69']
+          : shipPercent <= 70
+          ? ship['<=70']
+          : shipPercent <= 80
+          ? ship['<=80']
+          : shipPercent <= 99
+          ? ship['<=99']
+          : ship['===100']
+      } - **${shipPercent}%**`,
     });
   },
 };
