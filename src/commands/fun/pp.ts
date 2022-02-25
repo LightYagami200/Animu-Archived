@@ -40,13 +40,7 @@ module.exports = {
 
     // -> Reply
     await interaction.reply({
-      content: `${member}`,
-      embeds: [
-        new MessageEmbed({
-          title: `**${member.displayName}**'s pp size`,
-          description: ppSize,
-        }),
-      ],
+      content: `${member}'s PP Size:\n${ppSize}`,
     });
   },
 };

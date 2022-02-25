@@ -36,19 +36,13 @@ module.exports = {
     // -> Generate butt comment
     const coolnessComment = `${coolness[
       Math.floor(
-        mulberry32(parseInt(member.id)) * (coolness.length - 0 + 1) + 0,
+        mulberry32(parseInt(member.id)) * (coolness.length - 1 + 1) + 0,
       )
     ].replace('$USER', `${member}`)}`;
 
     // -> Reply
     await interaction.reply({
-      content: `${member}`,
-      embeds: [
-        new MessageEmbed({
-          title: `Is **${member.displayName}** cool?`,
-          description: coolnessComment,
-        }),
-      ],
+      content: coolnessComment,
     });
   },
 };
