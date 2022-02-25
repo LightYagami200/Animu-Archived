@@ -58,7 +58,7 @@ module.exports = {
         ? iq['<=140']
         : iqPoints <= 160
         ? iq['<=160']
-        : iqPoints <= 169
+        : iqPoints === 169
         ? iq['===169']
         : iqPoints <= 180
         ? iq['<=180']
