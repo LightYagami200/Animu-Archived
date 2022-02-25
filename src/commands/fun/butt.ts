@@ -33,9 +33,7 @@ module.exports = {
 
     // -> Generate butt comment
     const buttComment = `${butt[
-      Math.floor(
-        mulberry32(parseInt(member.id)) * (butt.length - 1 + 1) + 0,
-      )
+      Math.floor(mulberry32(parseInt(member.id)) * (butt.length - 1))
     ].replace('$USER', `${member}`)}`;
 
     // -> Reply

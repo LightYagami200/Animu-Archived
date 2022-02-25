@@ -31,9 +31,7 @@ module.exports = {
     // -> Generate pp size
     const ppSize = `8${Array.from(
       {
-        length: Math.floor(
-          mulberry32(parseInt(member.id)) * (50 - 0 + 1) + 0,
-        ),
+        length: Math.floor(mulberry32(parseInt(member.id)) * 50),
       },
       () => '=',
     ).join('')}=>`;
