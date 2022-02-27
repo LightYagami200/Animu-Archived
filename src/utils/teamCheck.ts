@@ -6,7 +6,7 @@ import { CommandInteraction } from 'discord.js';
 // =====================!SECTION
 
 // =====================
-// SECTION | Team Check
+// SECTION | TEAM CHECK
 // =====================
 async function teamCheck(
   interaction: CommandInteraction,
