@@ -3,7 +3,7 @@
 // =====================
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { mulberry32 } from '@utils';
-import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js';
+import { CommandInteraction, GuildMember } from 'discord.js';
 import { coolness } from '@assets/json/fun.json';
 // =====================!SECTION
 
