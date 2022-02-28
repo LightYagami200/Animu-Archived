@@ -43,8 +43,8 @@ export interface SolanaTransaction {
   tokenBalanes: Array<{
     account: string;
     amount: {
-      postAmount: number | string;
-      preAmount: number | string;
+      postAmount: string;
+      preAmount: string;
     };
     token: {
       decimals: number;
