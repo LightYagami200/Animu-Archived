@@ -8,6 +8,8 @@ import { join } from 'path';
 import { connect, connection } from 'mongoose';
 import { discordBotToken, mongoConnectionString } from '@keys';
 import { logCommandUsage } from '@utils';
+
+import routes from './routes';
 // =====================!SECTION
 
 // =====================
@@ -57,6 +59,9 @@ connect(mongoConnectionString);
 connection.once('open', async () => {
   console.log('Database Status: Online');
 });
+
+// -> Load Routes
+routes(client);
 
 // -> Handle Events
 for (const file of eventFiles) {

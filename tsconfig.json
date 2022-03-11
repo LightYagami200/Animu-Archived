@@ -15,7 +15,10 @@
       "@keys": ["keys/index"],
       "@assets/*": ["assets/*"],
       "@models/*": ["models/*"],
-      "@utils": ["utils/index"]
+      "@utils": ["utils/index"],
+      "@routes/utils": ["routes/utils/index"],
+      "@routes/middlewares": ["routes/middlewares/index"],
+      "@routes/v1/*": ["routes/api/v1/*"]
     },
     "noImplicitAny": true,
     "resolveJsonModule": true,
