@@ -12,6 +12,8 @@ import {
   encryptionSecret,
 } from '@keys';
 import { Client } from 'discord.js';
+import { sign } from 'tweetnacl';
+import { PublicKey } from '@solana/web3.js';
 import { validateUser } from '@routes/middlewares';
 // =========================== !SECTION
 
@@ -31,8 +33,6 @@ export default (client: Client) => {
     [body('code').not().isEmpty().trim()],
     async (req: Request, res: Response) => {
       const errors = validationResult(req);
-
-      console.log({ code: req.body.code });
 
       if (!errors.isEmpty())
         return res.status(400).json({ errors: errors.array() });
@@ -79,6 +79,41 @@ export default (client: Client) => {
     [validateUser(client)],
     async (req: Request, res: Response) => {
       return res.status(200).json({ user: req.user });
+    },
+  );
+
+  // -> Verify user
+  users.post(
+    '/verify',
+    [
+      validateUser(client),
+      body('publicKey').isArray().not().isEmpty(),
+      body('signature').isArray().not().isEmpty(),
+    ],
+    async (req: Request, res: Response) => {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty())
+        return res.status(400).json({ errors: errors.array() });
+
+      const message = 'Sign below to verify your wallet ≧◡≦';
+      const encodedMessage = new TextEncoder().encode(message);
+      const publicKey = new Uint8Array(req.body.publicKey);
+      const signature = new Uint8Array(req.body.signature);
+
+      console.log({
+        encodedMessage,
+        signature,
+        publicKey,
+      });
+
+      const valid = sign.detached.verify(
+        encodedMessage,
+        signature,
+        publicKey,
+      );
+
+      console.log({ valid });
     },
   );
 
