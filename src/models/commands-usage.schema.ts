@@ -1,15 +1,15 @@
 // Dependencies
 import { Schema } from 'mongoose';
 import {
-  ICommandUsageDataDocument,
-  ICommandUsageDataModel,
+  ICommandsUsageDocument,
+  ICommandsUsageModel,
 } from '@models/commands-usage.types';
-import { logCommandUsage } from './commands-usage.statics';
+import { logCommandsUsage } from './commands-usage.statics';
 
 // Schema
 const CommandsUsageSchema = new Schema<
-  ICommandUsageDataDocument,
-  ICommandUsageDataModel
+  ICommandsUsageDocument,
+  ICommandsUsageModel
 >({
   commandName: {
     type: String,
@@ -19,7 +19,7 @@ const CommandsUsageSchema = new Schema<
 });
 
 // Statics
-CommandsUsageSchema.statics.logCommandUsage = logCommandUsage;
+CommandsUsageSchema.statics.logCommandsUsage = logCommandsUsage;
 
 // Methods
 

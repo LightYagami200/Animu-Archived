@@ -1,13 +1,13 @@
 // Dependencies
 import { model } from 'mongoose';
 import {
-  ICommandUsageDataDocument,
-  ICommandUsageDataModel,
+  ICommandsUsageDocument,
+  ICommandsUsageModel,
 } from '@models/commands-usage.types';
 import CommandsUsageSchema from '@models/commands-usage.schema';
 
 // Export
 export const CommandsUsageModel = model<
-  ICommandUsageDataDocument,
-  ICommandUsageDataModel
+  ICommandsUsageDocument,
+  ICommandsUsageModel
 >('CommandsUsage', CommandsUsageSchema, 'commandsUsage');

@@ -7,7 +7,7 @@ import { readdirSync } from 'fs';
 import { join } from 'path';
 import { connect, connection } from 'mongoose';
 import { discordBotToken, mongoConnectionString } from '@keys';
-import { logCommandUsage } from '@utils';
+import { logCommandsUsage } from '@utils';
 
 import routes from './routes';
 // =====================!SECTION
@@ -79,7 +79,7 @@ client.on('interactionCreate', async (interaction) => {
 
   const { commandName } = interaction;
 
-  logCommandUsage(commandName);
+  logCommandsUsage(commandName);
 
   if (!commandsCollection.has(commandName)) return;
 

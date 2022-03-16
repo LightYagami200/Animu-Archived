@@ -1,3 +1,5 @@
+import { IUserDocument } from '@models/users.types';
+
 export {};
 
 declare global {
@@ -13,4 +15,5 @@ interface identity {
   discord: {
     id: string;
   };
+  user: IUserDocument;
 }

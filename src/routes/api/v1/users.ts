@@ -13,8 +13,8 @@ import {
 } from '@keys';
 import { Client } from 'discord.js';
 import { sign } from 'tweetnacl';
-import { PublicKey } from '@solana/web3.js';
 import { validateUser } from '@routes/middlewares';
+import { PublicKey } from '@solana/web3.js';
 // =========================== !SECTION
 
 // ===========================
@@ -98,22 +98,22 @@ export default (client: Client) => {
 
       const message = 'Sign below to verify your wallet ≧◡≦';
       const encodedMessage = new TextEncoder().encode(message);
-      const publicKey = new Uint8Array(req.body.publicKey);
+      const publicKey = new PublicKey(req.body.publicKey);
       const signature = new Uint8Array(req.body.signature);
-
-      console.log({
-        encodedMessage,
-        signature,
-        publicKey,
-      });
 
       const valid = sign.detached.verify(
         encodedMessage,
         signature,
-        publicKey,
+        publicKey.toBytes(),
       );
 
-      console.log({ valid });
+      if (!valid) return res.status(401).json();
+
+      const user = await req.user.user.addPublicKey(publicKey.toString());
+
+      return res.status(200).json({
+        user,
+      });
     },
   );
 

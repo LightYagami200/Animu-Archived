@@ -2,6 +2,8 @@
 // SECTION | IMPORTS
 // ===========================
 import { encryptionSecret } from '@keys';
+import { UserModel } from '@models/users.model';
+import { IUserDocument } from '@models/users.types';
 import axios from 'axios';
 import { Client } from 'discord.js';
 import { NextFunction, Request, Response } from 'express';
@@ -38,8 +40,15 @@ const validateUser =
           },
         );
 
+        let user = (await UserModel.findOne({
+          discordID: idRes.data.id,
+        })) as IUserDocument | null;
+
+        if (!user) user = await UserModel.createUser(idRes.data.id);
+
         const identity = {
           discord: idRes.data,
+          user,
         };
 
         req.accessToken = accessToken;

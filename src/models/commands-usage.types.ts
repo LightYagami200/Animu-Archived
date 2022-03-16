@@ -2,17 +2,15 @@
 import { Document, Model } from 'mongoose';
 
 // Interface
-export interface ICommandUsageData {
+export interface ICommandsUsage {
   commandName: string;
   totalUses: number;
 }
 
 // Exports
-export interface ICommandUsageDataDocument
-  extends ICommandUsageData,
-    Document {}
+export interface ICommandsUsageDocument extends ICommandsUsage, Document {}
 
-export interface ICommandUsageDataModel
-  extends Model<ICommandUsageDataDocument> {
-  logCommandUsage(this: ICommandUsageDataModel, commandName: string): void;
+export interface ICommandsUsageModel
+  extends Model<ICommandsUsageDocument> {
+  logCommandsUsage(this: ICommandsUsageModel, commandName: string): void;
 }

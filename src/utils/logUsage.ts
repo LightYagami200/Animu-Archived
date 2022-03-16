@@ -7,9 +7,9 @@ import { CommandsUsageModel } from '@models/commands-usage.model';
 // =====================
 // SECTION | LOG USAGE
 // =====================
-function logCommandUsage(commandName: string) {
-  CommandsUsageModel.logCommandUsage(commandName);
+function logCommandsUsage(commandName: string) {
+  CommandsUsageModel.logCommandsUsage(commandName);
 }
 
-export default logCommandUsage;
+export default logCommandsUsage;
 // =====================!SECTION
