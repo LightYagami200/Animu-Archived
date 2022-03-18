@@ -14,6 +14,7 @@ const topGGToken: string = keys.topGGToken;
 const teamMembers: string[] = keys.teamMembers
   .split(',')
   .map((s: string) => s.trim());
+const bunnyAPIKey: string = keys.bunnyAPIKey;
 
 export {
   discordBotToken,
@@ -25,4 +26,5 @@ export {
   mongoConnectionString,
   topGGToken,
   teamMembers,
+  bunnyAPIKey,
 };
