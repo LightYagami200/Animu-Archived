@@ -6,6 +6,7 @@ import { Request, Response, Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import {
+  betaTesters,
   discordClientID,
   discordClientSecret,
   discordRedirectURI,
@@ -78,6 +79,12 @@ export default (client: Client) => {
     '/auth',
     [validateUser(client)],
     async (req: Request, res: Response) => {
+      // -> Is user a beta tester?
+      if (!betaTesters.includes(req.user.discord.id))
+        return res.status(401).json({
+          error: 'You are not a beta tester.',
+        });
+
       return res.status(200).json({ user: req.user });
     },
   );

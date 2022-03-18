@@ -8,5 +8,6 @@ module.exports = {
   mongoConnectionString: process.env.MONGO_CONNECTION_STRING,
   topGGToken: process.env.TOP_GG_TOKEN,
   teamMembers: process.env.TEAM_MEMBERS,
+  betaTesters: process.env.BETA_TESTERS,
   bunnyAPIKey: process.env.BUNNY_API_KEY,
 };
