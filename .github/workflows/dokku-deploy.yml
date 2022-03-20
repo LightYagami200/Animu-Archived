@@ -19,5 +19,5 @@ jobs:
         uses: idoberko2/dokku-deploy-github-action@v1
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          dokku-host: '167.179.65.118'
-          app-name: 'animu'
+          dokku-host: '149.28.42.144'
+          app-name: 'animu-api'
