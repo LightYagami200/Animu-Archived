@@ -234,14 +234,14 @@ function getNFTsPanel(member: GuildMember, nfts: NFT[], page: number) {
       }),
     ];
 
-  nfts = nfts.slice(page * 4, (page + 1) * 4);
+  const nftsToShow = nfts.slice(page * 4, (page + 1) * 4);
 
   return [
     new MessageEmbed({
       url: `https://animu.io/users/${member.id}`,
       title: `${member.displayName}'s Profile`,
       image: {
-        url: nfts[0].image,
+        url: nftsToShow[0].image,
       },
       fields: [
         {
@@ -255,7 +255,7 @@ function getNFTsPanel(member: GuildMember, nfts: NFT[], page: number) {
         text: 'Powered by Animu.io',
       },
     }),
-    ...nfts.slice(1, 4).map(
+    ...nftsToShow.slice(1, 4).map(
       (nft) =>
         new MessageEmbed({
           url: `https://animu.io/users/${member.id}`,
@@ -283,7 +283,7 @@ function getNFTPagination(nftArray: NFT[], page: number) {
           custom_id: 'command:profile:nft-next',
           // @ts-ignore
           style: 'PRIMARY',
-          disabled: Math.ceil(nftArray.length / 4) >= page + 1,
+          disabled: Math.ceil(nftArray.length / 4) <= page + 1,
         }),
       ],
     }),
