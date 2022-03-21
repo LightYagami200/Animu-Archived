@@ -17,6 +17,9 @@ const teamMembers: string[] = keys.teamMembers
 const betaTesters: string[] = keys.betaTesters
   .split(',')
   .map((s: string) => s.trim());
+const betaGuilds: string[] = keys.betaGuilds
+  .split(',')
+  .map((s: string) => s.trim());
 const bunnyAPIKey: string = keys.bunnyAPIKey;
 
 export {
@@ -30,5 +33,6 @@ export {
   topGGToken,
   teamMembers,
   betaTesters,
+  betaGuilds,
   bunnyAPIKey,
 };

@@ -6,6 +6,7 @@ import { Request, Response, Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import {
+  betaGuilds,
   betaTesters,
   discordClientID,
   discordClientSecret,
@@ -79,13 +80,29 @@ export default (client: Client) => {
     '/auth',
     [validateUser(client)],
     async (req: Request, res: Response) => {
-      // -> Is user a beta tester?
-      if (!betaTesters.includes(req.user.discord.id))
+      const guilds = await Promise.all(
+        betaGuilds.map((g) => client.guilds.fetch(g)),
+      );
+      try {
+        const inBetaGuilds = await Promise.all(
+          guilds.map((g) => g.members.fetch(req.user.discord.id)),
+        );
+
+        console.log({ guilds, inBetaGuilds });
+
+        // -> Is user a beta tester?
+        if (!betaTesters.includes(req.user.discord.id) && !betaGuilds)
+          return res.status(401).json({
+            error: 'You are not a beta tester.',
+          });
+
+        return res.status(200).json({ user: req.user });
+      } catch (e) {
+        console.log({ e });
         return res.status(401).json({
           error: 'You are not a beta tester.',
         });
-
-      return res.status(200).json({ user: req.user });
+      }
     },
   );
 
