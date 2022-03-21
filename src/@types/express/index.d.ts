@@ -16,4 +16,12 @@ interface identity {
     id: string;
   };
   user: IUserDocument;
+  guilds: Array<{
+    id: string;
+    name: string;
+    icon: string;
+    owner: boolean;
+    permissions: string;
+    features: string[];
+  }>;
 }

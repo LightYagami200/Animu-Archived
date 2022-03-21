@@ -46,7 +46,7 @@ export default (client: Client) => {
           grant_type: 'authorization_code',
           code: req.body.code.toString(),
           redirect_uri: discordRedirectURI,
-          scope: 'identify',
+          scope: 'identify guilds',
         });
 
         const resp = await axios.post(
@@ -80,29 +80,22 @@ export default (client: Client) => {
     '/auth',
     [validateUser(client)],
     async (req: Request, res: Response) => {
-      const guilds = await Promise.all(
-        betaGuilds.map((g) => client.guilds.fetch(g)),
-      );
-      try {
-        const inBetaGuilds = await Promise.all(
-          guilds.map((g) => g.members.fetch(req.user.discord.id)),
-        );
+      console.log({
+        isInBetaGuild: betaGuilds.some((bG) =>
+          req.user.guilds.find((g) => g.id === bG),
+        ),
+      });
 
-        console.log({ guilds, inBetaGuilds });
-
-        // -> Is user a beta tester?
-        if (!betaTesters.includes(req.user.discord.id) && !betaGuilds)
-          return res.status(401).json({
-            error: 'You are not a beta tester.',
-          });
-
-        return res.status(200).json({ user: req.user });
-      } catch (e) {
-        console.log({ e });
+      // -> Is user a beta tester?
+      if (
+        !betaTesters.includes(req.user.discord.id) &&
+        !betaGuilds.some((bG) => req.user.guilds.find((g) => g.id === bG))
+      )
         return res.status(401).json({
           error: 'You are not a beta tester.',
         });
-      }
+
+      return res.status(200).json({ user: req.user });
     },
   );
 
@@ -119,6 +112,21 @@ export default (client: Client) => {
 
       if (!errors.isEmpty())
         return res.status(400).json({ errors: errors.array() });
+
+      console.log({
+        isInBetaGuild: betaGuilds.some((bG) =>
+          req.user.guilds.find((g) => g.id === bG),
+        ),
+      });
+
+      // -> Is user a beta tester?
+      if (
+        !betaTesters.includes(req.user.discord.id) &&
+        !betaGuilds.some((bG) => req.user.guilds.find((g) => g.id === bG))
+      )
+        return res.status(401).json({
+          error: 'You are not a beta tester.',
+        });
 
       const message = 'Sign below to verify your wallet ≧◡≦';
       const encodedMessage = new TextEncoder().encode(message);

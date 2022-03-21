@@ -40,6 +40,15 @@ const validateUser =
           },
         );
 
+        const guildRes = await axios.get(
+          `https://discordapp.com/api/users/@me/guilds`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        );
+
         let user = (await UserModel.findOne({
           discordID: idRes.data.id,
         })) as IUserDocument | null;
@@ -49,7 +58,10 @@ const validateUser =
         const identity = {
           discord: idRes.data,
           user,
+          guilds: guildRes.data,
         };
+
+        console.log({ identity });
 
         req.accessToken = accessToken;
         req.user = identity;
