@@ -58,14 +58,15 @@ module.exports = {
     // -> Start Collector
     const componentCollector = message.createMessageComponentCollector({
       filter: (i) =>
-        i.user.id === interaction.user.id && i.customId.startsWith('help'),
+        i.user.id === interaction.user.id &&
+        i.customId.startsWith('command:help:'),
       time: 120000,
     });
 
     // -> On button action
     componentCollector.on('collect', async (i) => {
       switch (i.customId) {
-        case 'help:category':
+        case 'command:help:category':
           selectedCategory = (i as SelectMenuInteraction).values[0];
 
           // -> Read command files
@@ -94,7 +95,7 @@ module.exports = {
           });
           break;
 
-        case 'help:command':
+        case 'command:help:command':
           const command = (i as SelectMenuInteraction).values[0];
 
           // -> Get command
@@ -202,7 +203,7 @@ function helpComponents(
       components: [
         new MessageSelectMenu({
           placeholder: 'Category',
-          custom_id: 'help:category',
+          custom_id: 'command:help:category',
           options: categories.map((category) => ({
             label: startCase(toLower(category.replace('-', ' '))),
             value: category,
@@ -220,7 +221,7 @@ function helpComponents(
         components: [
           new MessageSelectMenu({
             placeholder: 'Command',
-            custom_id: 'help:command',
+            custom_id: 'command:help:command',
             options: selectedCategoryCommands.map((command) => ({
               // @ts-ignore
               label: startCase(toLower(command.data.name)),

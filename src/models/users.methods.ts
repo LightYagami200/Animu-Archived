@@ -7,5 +7,11 @@ export async function addPublicKey(
   this: IUserDocument,
   publicKey: string,
 ) {
-  return await UserModel.findOneAndUpdate({ publicKey });
+  return await UserModel.findByIdAndUpdate(
+    this._id,
+    { publicKey },
+    {
+      new: true,
+    },
+  );
 }
