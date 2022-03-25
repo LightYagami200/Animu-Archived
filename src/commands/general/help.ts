@@ -165,9 +165,10 @@ function helpEmbed(
       : "Here's the list of all the awesome commands you can use!",
     fields: [
       {
-        name: "What's New?",
+        name: "What's New? ≧◡≦",
         value:
-          '`/collections` command to view all sort of info about your favorite collections!',
+          '• `/collections` - View all sort of info about your favorite collections!\n\
+           • `/psycho-pass` - Are you a threat to society?',
       },
     ],
     color: 0x2196f3,

@@ -4,7 +4,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { mulberry32 } from '@utils';
 import { CommandInteraction, GuildMember } from 'discord.js';
-import { coolness } from '@assets/json/fun.json';
+import { psychoPass } from '@assets/json/fun.json';
 // =====================!SECTION
 
 // =====================
@@ -12,14 +12,12 @@ import { coolness } from '@assets/json/fun.json';
 // =====================
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('coolness')
-    .setDescription(
-      'None of you can ever reach my level of coolness (◡‿◡✿)',
-    )
+    .setName('psycho-pass')
+    .setDescription('Are you a threat to society? (⊙△⊙✿)')
     .addUserOption((option) =>
       option
         .setName('user')
-        .setDescription('User to analyze coolness of')
+        .setDescription('User to determine crime coefficient of')
         .setRequired(false),
     ),
   async execute(interaction: CommandInteraction) {
@@ -30,17 +28,17 @@ module.exports = {
     // -> If member is Animu
     if (member.id === interaction.client.user!.id)
       return await interaction.reply(
-        "I'm more cool than you can possibly imagine (◡‿◡✿)",
+        `You dare point your dominator at me? '̿'̵͇̿̿\\=(•̪●)=/̵͇̿̿/'̿̿ ̿ ̿ ̿"`,
       );
 
-    // -> Generate iq comment
-    const coolnessComment = `${coolness[
-      Math.floor(mulberry32(parseInt(member.id)) * (coolness.length - 1))
+    // -> Generate psycho pass comment
+    const psychopassComment = `${psychoPass[
+      Math.floor(mulberry32(parseInt(member.id)) * (psychoPass.length - 1))
     ].replace('$USER', `${member}`)}`;
 
     // -> Reply
     await interaction.reply({
-      content: coolnessComment,
+      content: psychopassComment,
     });
   },
 };

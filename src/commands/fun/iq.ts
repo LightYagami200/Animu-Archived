@@ -40,7 +40,7 @@ module.exports = {
     await interaction.reply({
       content: `${(iqPoints <= 50
         ? iq['<=50']
-        : iqPoints <= 69
+        : iqPoints === 69
         ? iq['===69']
         : iqPoints <= 70
         ? iq['<=70']
