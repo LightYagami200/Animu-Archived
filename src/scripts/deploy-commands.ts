@@ -43,8 +43,7 @@ const rest = new REST({ version: '9' }).setToken(discordBotToken);
 
 rest
   .put(
-    // process.env.NODE_ENV === 'production'
-    true
+    process.env.NODE_ENV === 'production'
       ? Routes.applicationCommands(discordClientID)
       : Routes.applicationGuildCommands(
           discordClientID,
