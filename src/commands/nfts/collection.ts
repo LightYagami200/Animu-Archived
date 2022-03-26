@@ -37,37 +37,20 @@ module.exports = {
     // -> Data
     const collectionSymbol = interaction.options.getString('symbol', true);
 
-    // -> Check if info is cached
-    let cache = await redis.hget('collection-info', collectionSymbol);
+    // -> Check if moonrank info is cached
+    let cache = await redis.hget(
+      'collection-info-moonrank',
+      collectionSymbol,
+    );
 
-    let collection: {
-      symbol: string;
-      name: string;
-      description: string;
-      subtitle: string;
-      image: string;
-      twitter: string;
-      discord: string;
-      website: string;
-      isFlagged: boolean;
-      flagMessage: string;
-      categories: string[];
-      floorPrice: number;
-      listedCount: number;
-      avgPrice24hr: number;
-      volumeAll: number;
+    let moonrank: {
       pieces: number;
+      subtitle: string;
     };
 
     // -> If not cached, fetch info
     if (!cache) {
       try {
-        console.time('Fetching from magiceden');
-        const { data: ME } = await axios.get(
-          `https://api-mainnet.magiceden.dev/v2/collections/${collectionSymbol}`,
-        );
-        console.timeEnd('Fetching from magiceden');
-
         // Please don't sue me moonrank (◕︵◕)
         console.time('Fetching from moonrank');
         const { data } = await axios.get(
@@ -89,18 +72,15 @@ module.exports = {
         console.timeEnd('Parsing');
 
         // -> Cache info
-        collection = {
-          ...ME,
+        moonrank = {
           pieces,
           subtitle,
         };
 
-        console.log({ collection });
-
         await redis.hset(
-          'collection-info',
+          'collection-info-moonrank',
           collectionSymbol,
-          JSON.stringify(collection),
+          JSON.stringify(moonrank),
         );
       } catch (e) {
         return interaction.editReply({
@@ -108,7 +88,39 @@ module.exports = {
         });
       }
     } else {
-      collection = JSON.parse(cache);
+      moonrank = JSON.parse(cache);
+    }
+
+    // -> Magic Eden info
+    let collection: {
+      symbol: string;
+      name: string;
+      description: string;
+      image: string;
+      twitter: string;
+      discord: string;
+      website: string;
+      isFlagged: boolean;
+      flagMessage: string;
+      categories: string[];
+      floorPrice: number;
+      listedCount: number;
+      avgPrice24hr: number;
+      volumeAll: number;
+    };
+
+    try {
+      console.time('Fetching from magiceden');
+      const { data } = await axios.get(
+        `https://api-mainnet.magiceden.dev/v2/collections/${collectionSymbol}`,
+      );
+      console.timeEnd('Fetching from magiceden');
+
+      collection = data;
+    } catch (e) {
+      return interaction.editReply({
+        content: 'Could not find collection',
+      });
     }
 
     const fields = [
@@ -119,7 +131,7 @@ module.exports = {
       },
       {
         name: 'Pieces',
-        value: collection.pieces.toLocaleString(),
+        value: moonrank.pieces.toLocaleString(),
         inline: true,
       },
       {
@@ -167,9 +179,9 @@ module.exports = {
         new MessageEmbed({
           title: collection.name,
           description:
-            collection.subtitle.length >= 120
-              ? `${collection.subtitle.substring(0, 120)}...`
-              : collection.subtitle,
+            moonrank.subtitle.length >= 120
+              ? `${moonrank.subtitle.substring(0, 120)}...`
+              : moonrank.subtitle,
           fields,
           image: {
             url: collection.image,
