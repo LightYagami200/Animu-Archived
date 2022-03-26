@@ -14,12 +14,50 @@ import {
 import { getParsedNftAccountsByOwner } from '@nfteyez/sol-rayz';
 import axios from 'axios';
 import Redis from 'ioredis';
+import { clusterApiUrl, Connection, PublicKey } from '@solana/web3.js';
+import {
+  GemBankClient,
+  GemFarmClient,
+  GEM_BANK_PROG_ID,
+  GEM_FARM_PROG_ID,
+} from '@gemworks/gem-farm-ts';
+import { createFakeWallet, getStakedNFTs } from '@utils';
+import bankIdl from '@assets/json/gem_bank.json';
+import farmIdl from '@assets/json/gem_farm.json';
+import { programs } from '@metaplex/js';
 // =====================!SECTION
 
 // =====================
 // SECTION | INIT
 // =====================
 const redis = new Redis(process.env.REDIS_URL);
+
+const connection = new Connection(
+  clusterApiUrl('mainnet-beta'),
+  'confirmed',
+);
+
+// -> Farm IDs
+// --> This is temporary - as we get more creators, this will be replaced with a call to backend
+const farmIds = ['AuHnvdxt1SkLgRj9yiLVUYiYajk3MjGQpX9WsLEgr3F9'];
+
+const farmClient = new GemFarmClient(
+  connection,
+  createFakeWallet(),
+  // @ts-ignore
+  farmIdl,
+  GEM_FARM_PROG_ID,
+  bankIdl,
+  GEM_FARM_PROG_ID,
+);
+
+const bankClient = new GemBankClient(
+  connection,
+  createFakeWallet(),
+  // @ts-ignore
+  bankIdl,
+  GEM_BANK_PROG_ID,
+);
 
 interface NFTMetadata {
   uri: string;
@@ -169,6 +207,74 @@ module.exports = {
       components: getNFTPagination(nfts, state.currentPage),
     })) as Message;
 
+    // -> Get staked NFTs
+    const stakedNFTs = (
+      await Promise.all(
+        farmIds.map((f) =>
+          getStakedNFTs(
+            connection,
+            farmClient,
+            bankClient,
+            new PublicKey(f),
+            new PublicKey(user.publicKey!),
+          ),
+        ),
+      )
+    ).flat();
+
+    console.log({ stakedNFTs, data: stakedNFTs[0].data });
+
+    // -> Get metadata from cache
+    const cachedMetadataStaked = (
+      await Promise.all(
+        stakedNFTs.map((nft) => redis.hget('nft-metadata', nft.data.uri)),
+      )
+    )
+      .filter((nft) => nft)
+      .map((nft) => JSON.parse(nft!) as NFTMetadata);
+
+    const arweaveStaked = (
+      await Promise.all(
+        stakedNFTs.map((nft) =>
+          cachedMetadataStaked.find((cNft) => cNft.uri === nft.data.uri)
+            ? cachedMetadataStaked.find(
+                (cNft) => cNft.uri === nft.data.uri,
+              )
+            : axios.get(nft.data.uri),
+        ),
+      )
+    ).map((res) => (res && 'data' in res ? res.data : res));
+
+    console.log({ arweaveStaked });
+
+    // -> Cache uncached metadata
+    for (let i = 0; i < arweaveStaked.length; i++) {
+      if (
+        !cachedMetadataStaked.find(
+          (cNft) => cNft.uri === stakedNFTs[i].data.uri,
+        )
+      ) {
+        redis.hset(
+          'nft-metadata',
+          stakedNFTs[i].data.uri,
+          JSON.stringify({
+            uri: stakedNFTs[i].data.uri,
+            ...arweaveStaked[i],
+          }),
+        );
+      }
+    }
+
+    console.log({
+      embeds: getNFTsPanel(member, nfts, state.currentPage, arweaveStaked),
+    });
+
+    // -> Edit reply
+    await interaction.editReply({
+      embeds: getNFTsPanel(member, nfts, state.currentPage, arweaveStaked),
+      components: getNFTPagination(nfts, state.currentPage, arweaveStaked),
+    });
+
     // -> Add component handler
     const componentCollector = msg.createMessageComponentCollector({
       filter: (i) =>
@@ -214,11 +320,16 @@ module.exports = {
 // =====================
 // SECTION | UTILS
 // =====================
-function getNFTsPanel(member: GuildMember, nfts: NFT[], page: number) {
-  if (!nfts.length)
+function getNFTsPanel(
+  member: GuildMember,
+  nfts: NFT[],
+  page: number,
+  stakedNFTs?: NFT[],
+) {
+  if (!nfts.length && !stakedNFTs?.length)
     return [
       new MessageEmbed({
-        url: `https://animu.io/users/${member.id}`,
+        url: `https://beta.animu.io/login`,
         title: `${member.displayName}'s profile`,
         fields: [
           {
@@ -234,11 +345,14 @@ function getNFTsPanel(member: GuildMember, nfts: NFT[], page: number) {
       }),
     ];
 
-  const nftsToShow = nfts.slice(page * 4, (page + 1) * 4);
+  const sNFTs = stakedNFTs ? stakedNFTs : [];
+  const nftsToShow = [...nfts, ...sNFTs].slice(page * 4, (page + 1) * 4);
+
+  console.log({ sNFTs, nftsToShow, n: nftsToShow.slice(1, 4) });
 
   return [
     new MessageEmbed({
-      url: `https://animu.io/users/${member.id}`,
+      url: `https://beta.animu.io/login`,
       title: `${member.displayName}'s Profile`,
       image: {
         url: nftsToShow[0].image,
@@ -246,7 +360,21 @@ function getNFTsPanel(member: GuildMember, nfts: NFT[], page: number) {
       fields: [
         {
           name: 'Total NFTs',
+          value:
+            stakedNFTs && nfts
+              ? (nfts.length + stakedNFTs.length).toString()
+              : 'Loading...',
+          inline: true,
+        },
+        {
+          name: 'NFTs in Wallet',
           value: nfts.length.toString(),
+          inline: true,
+        },
+        {
+          name: 'Staked NFTs',
+          value: stakedNFTs ? stakedNFTs.length.toString() : 'Loading...',
+          inline: true,
         },
       ],
       color: 0x2196f3,
@@ -258,7 +386,7 @@ function getNFTsPanel(member: GuildMember, nfts: NFT[], page: number) {
     ...nftsToShow.slice(1, 4).map(
       (nft) =>
         new MessageEmbed({
-          url: `https://animu.io/users/${member.id}`,
+          url: `https://beta.animu.io/login`,
           image: {
             url: nft.image,
           },
@@ -267,7 +395,11 @@ function getNFTsPanel(member: GuildMember, nfts: NFT[], page: number) {
   ];
 }
 
-function getNFTPagination(nftArray: NFT[], page: number) {
+function getNFTPagination(
+  nftArray: NFT[],
+  page: number,
+  stakedNFTs?: NFT[],
+) {
   return [
     new MessageActionRow({
       components: [
@@ -283,7 +415,9 @@ function getNFTPagination(nftArray: NFT[], page: number) {
           custom_id: 'command:profile:nft-next',
           // @ts-ignore
           style: 'PRIMARY',
-          disabled: Math.ceil(nftArray.length / 4) <= page + 1,
+          disabled:
+            Math.ceil((nftArray.length + (stakedNFTs?.length || 0)) / 4) <=
+            page + 1,
         }),
       ],
     }),
