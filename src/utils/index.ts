@@ -6,6 +6,8 @@ import confirm from './confirm';
 import { mulberry32, splitmix32 } from './random';
 import teamCheck from './teamCheck';
 import { SolScan, SolanaTransaction } from './solscan';
+import { createFakeWallet } from './wallets';
+import { getStakedNFTs } from './nfts';
 // =====================!SECTION
 
 // =====================
@@ -19,5 +21,7 @@ export {
   teamCheck,
   SolScan,
   SolanaTransaction,
+  createFakeWallet,
+  getStakedNFTs,
 };
 // =====================!SECTION

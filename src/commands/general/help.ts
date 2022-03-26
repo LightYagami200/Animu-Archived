@@ -168,6 +168,7 @@ function helpEmbed(
         name: "What's New? ≧◡≦",
         value:
           '• `/collections` - View all sort of info about your favorite collections!\n\
+           • `/profile` command now displays your staked NFTs (Currently only MAEC collection supported) \n\
            • `/psycho-pass` - Are you a threat to society?',
       },
     ],

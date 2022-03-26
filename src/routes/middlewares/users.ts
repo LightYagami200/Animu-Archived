@@ -61,8 +61,6 @@ const validateUser =
           guilds: guildRes.data,
         };
 
-        console.log({ identity });
-
         req.accessToken = accessToken;
         req.user = identity;
 
