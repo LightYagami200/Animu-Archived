@@ -10,7 +10,25 @@
   ],
   "coolness": [
     "$USER is about as cool as the Sahara desert in summer",
-    "$USER is so cool everything around them freezes"
+    "$USER is so cool everything around them freezes",
+    "$USER is the coolest being to walk this Earth",
+    "$USER is extremely amazingly amazing",
+    "$USER is as cool as ice",
+    "$USER is cooler than cool",
+    "$USER is an extremely cool dude",
+    "$USER is pretty sweet, not gonna lie",
+    "$USER is okay, nothing special",
+    "$USER is just not all that neat",
+    "$USER is awful, honestly",
+    "$USER is terrible in every way",
+    "$USER is an absolute train wreck",
+    "$USER is a horrible, horrible person",
+    "$USER is the worst person I've ever had the displeasure of knowing"
+  ],
+  "psychoPass": [
+    "🕊️ $USER is not a target for enforcement action. The trigger of the Dominator will be locked.",
+    "💉 $USER is classified as a latent criminal and is a target for enforcement action. Dominator is set to Non-Lethal Paralyzer mode.",
+    "🔫 $USER poses a serious threat to society. Lethal force is authorized. The Dominator will automatically switch to Lethal Eliminator."
   ],
   "ship": {
     "<=10": "🌊 This ship sunk before it even had a chance to leave shallow waters",

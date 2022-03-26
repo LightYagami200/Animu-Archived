@@ -213,7 +213,7 @@ const transactionOverviewEmbed = (transaction: SolanaTransaction) => [
     color: 0x2196f3,
     footer: {
       iconURL: 'https://cryptologos.cc/logos/solana-sol-logo.png',
-      text: 'Powered by Solana Blockchain',
+      text: 'Powered by Animu.io & Solana Blockchain',
     },
   }),
 ];
@@ -248,7 +248,7 @@ const transactionSolBalanceChangeEmbed = (
     color: 0x2196f3,
     footer: {
       iconURL: 'https://cryptologos.cc/logos/solana-sol-logo.png',
-      text: 'Powered by Solana Blockchain',
+      text: 'Powered by Animu.io & Solana Blockchain',
     },
   }),
 ];
@@ -288,7 +288,7 @@ const transactiontokenBalanceChange = (transaction: SolanaTransaction) => [
     color: 0x2196f3,
     footer: {
       iconURL: 'https://cryptologos.cc/logos/solana-sol-logo.png',
-      text: 'Powered by Solana Blockchain',
+      text: 'Powered by Animu.io & Solana Blockchain',
     },
   }),
 ];

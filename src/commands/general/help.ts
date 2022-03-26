@@ -159,10 +159,18 @@ function helpEmbed(
   const embed = new MessageEmbed({
     title: selectedCommand
       ? startCase(toLower(selectedCommand.name.replace('-', ' ')))
-      : 'Animu - A tiny lil bundle of happiness',
+      : 'Animu - Future of NFTs',
     description: selectedCommand
       ? selectedCommand.description
       : "Here's the list of all the awesome commands you can use!",
+    fields: [
+      {
+        name: "What's New? ≧◡≦",
+        value:
+          '• `/collections` - View all sort of info about your favorite collections!\n\
+           • `/psycho-pass` - Are you a threat to society?',
+      },
+    ],
     color: 0x2196f3,
   });
 
