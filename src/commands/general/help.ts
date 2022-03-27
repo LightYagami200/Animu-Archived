@@ -74,7 +74,9 @@ module.exports = {
             join(__dirname, '..', selectedCategory),
           );
 
-          for (const file of commandFiles) {
+          for (const file of commandFiles.filter(
+            (c) => !c.includes('context_menu'),
+          )) {
             const command = require(join(
               __dirname,
               '..',
@@ -167,7 +169,8 @@ function helpEmbed(
       {
         name: "What's New? ≧◡≦",
         value:
-          '• `/collections` - View all sort of info about your favorite collections!\n\
+          '• Now you can view anyones profile by right clicking their avatar -> apps -> Profile \n\
+           • `/collections` - View all sort of info about your favorite collections!\n\
            • `/profile` command now displays your staked NFTs (Currently only MAEC collection supported) \n\
            • `/psycho-pass` - Are you a threat to society?',
       },
