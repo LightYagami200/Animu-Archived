@@ -74,6 +74,8 @@ module.exports = {
             join(__dirname, '..', selectedCategory),
           );
 
+          selectedCategoryCommands = [];
+
           for (const file of commandFiles.filter(
             (c) => !c.includes('context_menu'),
           )) {
