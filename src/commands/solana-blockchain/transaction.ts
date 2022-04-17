@@ -47,6 +47,8 @@ module.exports = {
       currentPanel: 'overview',
     };
 
+    console.log({ tx });
+
     // -> Reply
     const msg = (await interaction.editReply({
       embeds: transactionOverviewEmbed(tx),
@@ -207,7 +209,14 @@ const transactionOverviewEmbed = (transaction: SolanaTransaction) => [
                     )} <:sol:947813755780206612> [SOL](https://solscan.io/token/So11111111111111111111111111111111111111112)**`,
                 )}`,
             )
-            .join('\n'),
+            .join('\n') +
+          `${
+            !transaction.solTransfers.length &&
+            !transaction.tokenTransfers.length &&
+            !transaction.unknownTransfers.length
+              ? '\nNo transfers'
+              : ''
+          }`,
       },
     ],
     color: 0x2196f3,
