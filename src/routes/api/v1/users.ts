@@ -13,7 +13,6 @@ import {
   discordRedirectURI,
   encryptionSecret,
 } from '@keys';
-import { Client } from 'discord.js';
 import { sign } from 'tweetnacl';
 import { validateUser } from '@routes/middlewares';
 import { PublicKey } from '@solana/web3.js';
@@ -28,7 +27,7 @@ const users = Router();
 // ===========================
 // SECTION | MAIN
 // ===========================
-export default (client: Client) => {
+export default () => {
   // -> Login
   users.post(
     '/login',
@@ -78,7 +77,7 @@ export default (client: Client) => {
   // -> Authorize user
   users.post(
     '/auth',
-    [validateUser(client)],
+    [validateUser],
     async (req: Request, res: Response) => {
       console.log({
         isInBetaGuild: betaGuilds.some((bG) =>
@@ -103,7 +102,7 @@ export default (client: Client) => {
   users.post(
     '/verify',
     [
-      validateUser(client),
+      validateUser,
       body('publicKey').isArray().not().isEmpty(),
       body('signature').isArray().not().isEmpty(),
     ],

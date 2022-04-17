@@ -26,6 +26,8 @@ export interface INFTCollection {
   tags: string[];
   /** Collection Status */
   status: 'draft' | 'published';
+  /** Creation Date */
+  createdAt: Date;
 }
 
 // Exports

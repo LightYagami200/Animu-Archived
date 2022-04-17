@@ -35,6 +35,10 @@ const NFTCollectionSchema = new Schema<
     type: String,
     default: 'draft',
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 // Statics
