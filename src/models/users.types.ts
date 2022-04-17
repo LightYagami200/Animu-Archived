@@ -3,7 +3,9 @@ import { Document, Model } from 'mongoose';
 
 // Interface
 export interface IUser {
+  /** Discord ID of user */
   discordID: string;
+  /** Public Key of user */
   publicKey?: string;
 }
 
