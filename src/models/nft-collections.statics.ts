@@ -7,14 +7,10 @@ export async function createNFTCollection(
   owner: string,
   name: string,
   description: string,
-  logo: string,
-  banner: string,
 ) {
   return await this.create({
     owner,
     name,
     description,
-    logo,
-    banner,
   });
 }

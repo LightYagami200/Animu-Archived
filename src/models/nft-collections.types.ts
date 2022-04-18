@@ -17,13 +17,13 @@ export interface INFTCollection {
   /** Collection Description */
   description: string;
   /** Collection Socials */
-  socials: INFTCollectionSocials;
+  socials?: INFTCollectionSocials;
   /** Collection Logo */
-  logo: string;
+  logo?: string;
   /** Collection Banner */
-  banner: string;
+  banner?: string;
   /** Collection Tags */
-  tags: string[];
+  tags?: string[];
   /** Collection Status */
   status: 'draft' | 'published';
   /** Creation Date */
@@ -40,7 +40,5 @@ export interface INFTCollectionModel
     owner: string,
     name: string,
     description: string,
-    logo: string,
-    banner: string,
   ): Promise<INFTCollectionDocument>;
 }

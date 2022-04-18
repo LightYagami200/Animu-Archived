@@ -8,6 +8,7 @@ module.exports = {
   mongoConnectionString: process.env.MONGO_CONNECTION_STRING,
   topGGToken: process.env.TOP_GG_TOKEN,
   teamMembers: process.env.TEAM_MEMBERS,
+  s3BucketName: process.env.S3_BUCKET_NAME,
   betaTesters: process.env.BETA_TESTERS,
   betaGuilds: process.env.BETA_GUILDS,
   bunnyAPIKey: process.env.BUNNY_API_KEY,

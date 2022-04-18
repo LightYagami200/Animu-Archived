@@ -20,6 +20,7 @@ const betaTesters: string[] = keys.betaTesters
 const betaGuilds: string[] = keys.betaGuilds
   .split(',')
   .map((s: string) => s.trim());
+const s3BucketName: string = keys.s3BucketName;
 const bunnyAPIKey: string = keys.bunnyAPIKey;
 
 export {
@@ -34,5 +35,6 @@ export {
   teamMembers,
   betaTesters,
   betaGuilds,
+  s3BucketName,
   bunnyAPIKey,
 };

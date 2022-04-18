@@ -2,7 +2,7 @@
 // SECTION | IMPORTS
 // ===========================
 import { Request, Response, Router } from 'express';
-import { param, query, validationResult } from 'express-validator';
+import { body, param, query, validationResult } from 'express-validator';
 import { validateUser } from '@routes/middlewares';
 import { NFTCollectionModel } from '@models/nft-collections.model';
 // =========================== !SECTION
@@ -50,6 +50,34 @@ export default () => {
       );
 
       res.json(collections);
+    },
+  );
+
+  // -> Create a new collection
+  collections.post(
+    '/',
+    validateUser,
+    [
+      body('name').isString().notEmpty(),
+      body('description').isString().notEmpty(),
+    ],
+    async (req: Request, res: Response) => {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty())
+        return res.status(400).json({ errors: errors.array() });
+
+      // -> Get body properties
+      const { name, description } = req.body;
+
+      // -> Create new collection
+      const collection = await NFTCollectionModel.createNFTCollection(
+        req.user.discord.id,
+        name,
+        description,
+      );
+
+      res.json(collection);
     },
   );
 
