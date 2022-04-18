@@ -81,6 +81,48 @@ export default () => {
     },
   );
 
+  // -> Update a collection
+  collections.put(
+    '/:id',
+    validateUser,
+    [param('id').isMongoId()],
+    async (req: Request, res: Response) => {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty())
+        return res.status(400).json({ errors: errors.array() });
+
+      // -> Get body properties
+      const { name, description, socials, tags } = req.body;
+
+      // -> Find collection
+      const collection = await NFTCollectionModel.findOne({
+        _id: req.params.id,
+        owner: req.user.discord.id,
+      });
+
+      // -> Check if collection exists
+      if (!collection)
+        return res.status(404).json({
+          errors: [
+            {
+              msg: 'Collection not found',
+            },
+          ],
+        });
+
+      // -> Update collection
+      await collection.updateNFTCollection({
+        name,
+        description,
+        socials,
+        tags,
+      });
+
+      res.json(collection);
+    },
+  );
+
   // -> Get Collection by ID
   collections.get(
     '/:id',

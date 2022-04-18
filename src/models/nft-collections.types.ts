@@ -31,7 +31,24 @@ export interface INFTCollection {
 }
 
 // Exports
-export interface INFTCollectionDocument extends INFTCollection, Document {}
+export interface INFTCollectionDocument extends INFTCollection, Document {
+  updateNFTCollection(
+    this: INFTCollectionDocument,
+    update: {
+      name?: string;
+      description?: string;
+      socials?: {
+        websiteURI?: string;
+        twitterUsername?: string;
+        discordInviteCode?: string;
+        instagramUsername?: string;
+      };
+      logo?: string;
+      banner?: string;
+      tags?: string[];
+    },
+  ): Promise<INFTCollectionDocument>;
+}
 
 export interface INFTCollectionModel
   extends Model<INFTCollectionDocument> {

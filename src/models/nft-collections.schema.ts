@@ -5,6 +5,7 @@ import {
   INFTCollectionModel,
 } from '@models/nft-collections.types';
 import { createNFTCollection } from './nft-collections.statics';
+import { updateNFTCollection } from './nft-collections.methods';
 
 // Schema
 const NFTCollectionSchema = new Schema<
@@ -45,6 +46,7 @@ const NFTCollectionSchema = new Schema<
 NFTCollectionSchema.statics.createNFTCollection = createNFTCollection;
 
 // Methods
+NFTCollectionSchema.methods.updateNFTCollection = updateNFTCollection;
 
 // Exports
 export default NFTCollectionSchema;
