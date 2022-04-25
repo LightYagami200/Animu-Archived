@@ -76,7 +76,7 @@ users.post(
 // -> Authorize user
 users.post(
   '/auth',
-  [validateUser],
+  [validateUser(true)],
   async (req: Request, res: Response) => {
     console.log({
       isInBetaGuild: betaGuilds.some((bG) =>
@@ -101,7 +101,7 @@ users.post(
 users.post(
   '/verify',
   [
-    validateUser,
+    validateUser(true),
     body('publicKey').isArray().not().isEmpty(),
     body('signature').isArray().not().isEmpty(),
   ],

@@ -22,6 +22,8 @@ export interface INFTCollection {
   logo?: string;
   /** Collection Banner */
   banner?: string;
+  /** Collection slug */
+  slug: string;
   /** Collection Tags */
   tags?: string[];
   /** Collection Status */
@@ -46,6 +48,7 @@ export interface INFTCollectionDocument extends INFTCollection, Document {
       logo?: string;
       banner?: string;
       tags?: string[];
+      slug?: string[];
     },
   ): Promise<INFTCollectionDocument>;
 }

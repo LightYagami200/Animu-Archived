@@ -21,6 +21,8 @@ const betaGuilds: string[] = keys.betaGuilds
   .split(',')
   .map((s: string) => s.trim());
 const s3BucketName: string = keys.s3BucketName;
+const awsAccessKeyId: string = keys.awsAccessKeyId;
+const awsSecretAccessKey: string = keys.awsSecretAccessKey;
 const bunnyAPIKey: string = keys.bunnyAPIKey;
 
 export {
@@ -36,5 +38,7 @@ export {
   betaTesters,
   betaGuilds,
   s3BucketName,
+  awsAccessKeyId,
+  awsSecretAccessKey,
   bunnyAPIKey,
 };

@@ -5,12 +5,22 @@ import { Request, Response, Router } from 'express';
 import { body, param, query, validationResult } from 'express-validator';
 import { validateUser } from '@routes/middlewares';
 import { NFTCollectionModel } from '@models/nft-collections.model';
+import AWS from 'aws-sdk';
+import { awsAccessKeyId, awsSecretAccessKey } from '@keys';
 // =========================== !SECTION
 
 // ===========================
 // SECTION | INIT
 // ===========================
+AWS.config.update({
+  credentials: {
+    accessKeyId: awsAccessKeyId,
+    secretAccessKey: awsSecretAccessKey,
+  },
+});
+
 const collections = Router();
+const s3 = new AWS.S3();
 // =========================== !SECTION
 
 // ===========================
@@ -32,7 +42,7 @@ collections.get(
     // -> Apply constraints
     const pageQ = parseInt(page as string);
     const limitQ = Math.min(parseInt(limit as string), 20);
-    const offset = (pageQ - 1) * limitQ;
+    const offset = (Math.max(pageQ, 1) - 1) * limitQ;
 
     const collections = await NFTCollectionModel.find(
       {
@@ -55,7 +65,7 @@ collections.get(
 // -> Create a new collection
 collections.post(
   '/',
-  validateUser,
+  validateUser(true),
   [
     body('name').isString().notEmpty(),
     body('description').isString().notEmpty(),
@@ -83,7 +93,7 @@ collections.post(
 // -> Get collections of logged in user
 collections.get(
   '/me',
-  [validateUser],
+  [validateUser(true)],
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
 
@@ -102,7 +112,7 @@ collections.get(
 // -> Update a collection
 collections.put(
   '/:id',
-  validateUser,
+  validateUser(true),
   [param('id').isMongoId()],
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
@@ -141,10 +151,10 @@ collections.put(
   },
 );
 
-// -> Get Collection by ID
+// -> Get Collection by ID or Slug
 collections.get(
-  '/:id',
-  [param('id').isNumeric().not().isEmpty()],
+  '/:idOrSlug',
+  [param('idOrSlug').isString().not().isEmpty(), validateUser(false)],
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
 
@@ -152,47 +162,25 @@ collections.get(
       return res.status(400).json({ errors: errors.array() });
 
     // -> Get params
-    const { id } = req.params;
+    const { idOrSlug } = req.params;
 
     // -> Get collection
     const collection = await NFTCollectionModel.findOne({
-      _id: id,
-      status: 'published',
+      $or: [
+        {
+          _id: idOrSlug,
+        },
+        {
+          slug: idOrSlug,
+        },
+      ],
     });
 
-    if (!collection)
-      return res.status(404).json({
-        errors: [
-          {
-            msg: 'Collection not found',
-          },
-        ],
-      });
-
-    res.json(collection);
-  },
-);
-
-// -> Get a collection of logged in user by ID
-collections.get(
-  '/me/:id',
-  [validateUser, param('id').isNumeric().not().isEmpty()],
-  async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-
-    // -> Get params
-    const { id } = req.params;
-
-    // -> Get collection
-    const collection = await NFTCollectionModel.findOne({
-      _id: id,
-      owner: req.user.discord.id,
-    });
-
-    if (!collection)
+    if (
+      !collection ||
+      (collection.status !== 'published' &&
+        (!req.user || req.user.discord.id !== collection.owner))
+    )
       return res.status(404).json({
         errors: [
           {

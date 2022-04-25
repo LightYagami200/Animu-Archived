@@ -32,6 +32,10 @@ const NFTCollectionSchema = new Schema<
     index: true,
     default: [],
   },
+  slug: {
+    type: String,
+    unique: true,
+  },
   status: {
     type: String,
     default: 'draft',

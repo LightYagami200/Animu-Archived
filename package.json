@@ -34,6 +34,7 @@
     "lodash": "^4.17.21",
     "module-alias": "^2.2.2",
     "mongoose": "^6.0.12",
+    "slugify": "^1.6.5",
     "topgg-autoposter": "^2.0.1",
     "tweetnacl": "^1.0.3"
   },

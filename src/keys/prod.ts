@@ -9,6 +9,8 @@ module.exports = {
   topGGToken: process.env.TOP_GG_TOKEN,
   teamMembers: process.env.TEAM_MEMBERS,
   s3BucketName: process.env.S3_BUCKET_NAME,
+  awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   betaTesters: process.env.BETA_TESTERS,
   betaGuilds: process.env.BETA_GUILDS,
   bunnyAPIKey: process.env.BUNNY_API_KEY,
