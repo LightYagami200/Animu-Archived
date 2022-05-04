@@ -17,9 +17,6 @@ const teamMembers: string[] = keys.teamMembers
 const betaTesters: string[] = keys.betaTesters
   .split(',')
   .map((s: string) => s.trim());
-const betaGuilds: string[] = keys.betaGuilds
-  .split(',')
-  .map((s: string) => s.trim());
 const s3BucketName: string = keys.s3BucketName;
 const awsAccessKeyId: string = keys.awsAccessKeyId;
 const awsSecretAccessKey: string = keys.awsSecretAccessKey;
@@ -36,7 +33,6 @@ export {
   topGGToken,
   teamMembers,
   betaTesters,
-  betaGuilds,
   s3BucketName,
   awsAccessKeyId,
   awsSecretAccessKey,

@@ -6,8 +6,6 @@ import { Request, Response, Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import {
-  betaGuilds,
-  betaTesters,
   discordClientID,
   discordClientSecret,
   discordRedirectURI,
@@ -78,21 +76,6 @@ users.post(
   '/auth',
   [validateUser(true)],
   async (req: Request, res: Response) => {
-    console.log({
-      isInBetaGuild: betaGuilds.some((bG) =>
-        req.user.guilds.find((g) => g.id === bG),
-      ),
-    });
-
-    // -> Is user a beta tester?
-    if (
-      !betaTesters.includes(req.user.discord.id) &&
-      !betaGuilds.some((bG) => req.user.guilds.find((g) => g.id === bG))
-    )
-      return res.status(401).json({
-        error: 'You are not a beta tester.',
-      });
-
     return res.status(200).json({ user: req.user });
   },
 );
@@ -110,21 +93,6 @@ users.post(
 
     if (!errors.isEmpty())
       return res.status(400).json({ errors: errors.array() });
-
-    console.log({
-      isInBetaGuild: betaGuilds.some((bG) =>
-        req.user.guilds.find((g) => g.id === bG),
-      ),
-    });
-
-    // -> Is user a beta tester?
-    if (
-      !betaTesters.includes(req.user.discord.id) &&
-      !betaGuilds.some((bG) => req.user.guilds.find((g) => g.id === bG))
-    )
-      return res.status(401).json({
-        error: 'You are not a beta tester.',
-      });
 
     const message = 'Sign below to verify your wallet ≧◡≦';
     const encodedMessage = new TextEncoder().encode(message);

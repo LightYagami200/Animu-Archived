@@ -7,6 +7,7 @@ import { validateUser } from '@routes/middlewares';
 import { NFTCollectionModel } from '@models/nft-collections.model';
 import AWS from 'aws-sdk';
 import { awsAccessKeyId, awsSecretAccessKey } from '@keys';
+import { isValidObjectId } from 'mongoose';
 // =========================== !SECTION
 
 // ===========================
@@ -165,16 +166,13 @@ collections.get(
     const { idOrSlug } = req.params;
 
     // -> Get collection
-    const collection = await NFTCollectionModel.findOne({
-      $or: [
-        {
-          _id: idOrSlug,
-        },
-        {
+    const collection = isValidObjectId(idOrSlug)
+      ? await NFTCollectionModel.findById(idOrSlug)
+      : await NFTCollectionModel.findOne({
           slug: idOrSlug,
-        },
-      ],
-    });
+        });
+
+    console.log({ collection });
 
     if (
       !collection ||

@@ -12,6 +12,5 @@ module.exports = {
   awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
   awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   betaTesters: process.env.BETA_TESTERS,
-  betaGuilds: process.env.BETA_GUILDS,
   bunnyAPIKey: process.env.BUNNY_API_KEY,
 };

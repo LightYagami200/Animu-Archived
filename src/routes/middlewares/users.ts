@@ -25,51 +25,61 @@ const validateUser =
     if (!token && required)
       return res.status(403).send({ error: 'No token provided' });
 
-    jwt.verify(token, encryptionSecret, async (err: any, decoded: any) => {
-      if (err) return res.status(403).send({ error: 'Invalid token' });
+    if (token) {
+      jwt.verify(
+        token,
+        encryptionSecret,
+        async (err: any, decoded: any) => {
+          if (err) return res.status(403).send({ error: 'Invalid token' });
 
-      const { accessToken }: { accessToken: string } = decoded;
+          const { accessToken }: { accessToken: string } = decoded;
 
-      try {
-        const idRes = await axios.get(
-          `https://discordapp.com/api/users/@me`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          },
-        );
+          try {
+            const idRes = await axios.get(
+              `https://discordapp.com/api/users/@me`,
+              {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                },
+              },
+            );
 
-        const guildRes = await axios.get(
-          `https://discordapp.com/api/users/@me/guilds`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          },
-        );
+            const guildRes = await axios.get(
+              `https://discordapp.com/api/users/@me/guilds`,
+              {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                },
+              },
+            );
 
-        let user = (await UserModel.findOne({
-          discordID: idRes.data.id,
-        })) as IUserDocument | null;
+            let user = (await UserModel.findOne({
+              discordID: idRes.data.id,
+            })) as IUserDocument | null;
 
-        if (!user) user = await UserModel.createUser(idRes.data.id);
+            if (!user) user = await UserModel.createUser(idRes.data.id);
 
-        const identity = {
-          discord: idRes.data,
-          user,
-          guilds: guildRes.data,
-        };
+            const identity = {
+              discord: idRes.data,
+              user,
+              guilds: guildRes.data,
+            };
 
-        req.accessToken = accessToken;
-        req.user = identity;
+            req.accessToken = accessToken;
+            req.user = identity;
 
-        next();
-      } catch (e) {
-        if (e)
-          return res.status(403).send({ error: 'Discord Token expired' });
-      }
-    });
+            next();
+          } catch (e) {
+            if (e)
+              return res
+                .status(403)
+                .send({ error: 'Discord Token expired' });
+          }
+        },
+      );
+    } else {
+      next();
+    }
   };
 
 export { validateUser };
