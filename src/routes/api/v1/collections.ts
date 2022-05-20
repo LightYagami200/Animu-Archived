@@ -5,23 +5,23 @@ import { Request, Response, Router } from 'express';
 import { body, param, query, validationResult } from 'express-validator';
 import { validateUser } from '@routes/middlewares';
 import { NFTCollectionModel } from '@models/nft-collections.model';
-import AWS from 'aws-sdk';
-import { awsAccessKeyId, awsSecretAccessKey } from '@keys';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { awsAccessKeyId, awsSecretAccessKey, s3BucketName } from '@keys';
 import { isValidObjectId } from 'mongoose';
 // =========================== !SECTION
 
 // ===========================
 // SECTION | INIT
 // ===========================
-AWS.config.update({
+const collections = Router();
+const s3Client = new S3Client({
+  region: 'eu-central-1',
   credentials: {
     accessKeyId: awsAccessKeyId,
     secretAccessKey: awsSecretAccessKey,
   },
 });
-
-const collections = Router();
-const s3 = new AWS.S3();
 // =========================== !SECTION
 
 // ===========================
@@ -112,9 +112,9 @@ collections.get(
 
 // -> Update a collection
 collections.put(
-  '/:id',
+  '/:idOrSlug',
   validateUser(true),
-  [param('id').isMongoId()],
+  [param('idOrSlug').isString().not().isEmpty()],
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
 
@@ -122,13 +122,21 @@ collections.put(
       return res.status(400).json({ errors: errors.array() });
 
     // -> Get body properties
-    const { name, description, socials, tags } = req.body;
+    const { name, description, socials, tags, logo, banner } = req.body;
+
+    // -> Get param
+    const { idOrSlug } = req.params;
 
     // -> Find collection
-    const collection = await NFTCollectionModel.findOne({
-      _id: req.params.id,
-      owner: req.user.discord.id,
-    });
+    const collection = isValidObjectId(idOrSlug)
+      ? await NFTCollectionModel.findOne({
+          _id: idOrSlug,
+          owner: req.user.discord.id,
+        })
+      : await NFTCollectionModel.findOne({
+          slug: idOrSlug,
+          owner: req.user.discord.id,
+        });
 
     // -> Check if collection exists
     if (!collection)
@@ -140,13 +148,24 @@ collections.put(
         ],
       });
 
-    // -> Update collection
-    await collection.updateNFTCollection({
-      name,
-      description,
-      socials,
-      tags,
-    });
+    // -> If logo/banner
+    if (logo) {
+      await collection.updateNFTCollection({
+        logo: `https://${s3BucketName}.s3.eu-central-1.amazonaws.com/collection-logos/${collection._id}`,
+      });
+    } else if (banner) {
+      await collection.updateNFTCollection({
+        banner: `https://${s3BucketName}.s3.eu-central-1.amazonaws.com/collection-banners/${collection._id}`,
+      });
+    } else {
+      // -> Update collection
+      await collection.updateNFTCollection({
+        name: name || collection.name,
+        description: description || collection.description,
+        socials: socials || collection.socials,
+        tags: tags || collection.tags,
+      });
+    }
 
     res.json(collection);
   },
@@ -167,10 +186,10 @@ collections.get(
 
     // -> Get collection
     const collection = isValidObjectId(idOrSlug)
-      ? await NFTCollectionModel.findById(idOrSlug)
+      ? await NFTCollectionModel.findById(idOrSlug).lean()
       : await NFTCollectionModel.findOne({
           slug: idOrSlug,
-        });
+        }).lean();
 
     console.log({ collection });
 
@@ -187,7 +206,29 @@ collections.get(
         ],
       });
 
-    res.json(collection);
+    let bannerSignedURL;
+    let logoSignedURL;
+
+    // -> If collection owner
+    if (req.user && req.user.discord.id === collection.owner) {
+      const bannerCommand = new PutObjectCommand({
+        Bucket: s3BucketName,
+        Key: `collection-banners/${collection._id}`,
+      });
+      const logoCommand = new PutObjectCommand({
+        Bucket: s3BucketName,
+        Key: `collection-logos/${collection._id}`,
+      });
+
+      bannerSignedURL = await getSignedUrl(s3Client, bannerCommand, {
+        expiresIn: 3600,
+      });
+      logoSignedURL = await getSignedUrl(s3Client, logoCommand, {
+        expiresIn: 3600,
+      });
+    }
+
+    res.json({ ...collection, bannerSignedURL, logoSignedURL });
   },
 );
 
